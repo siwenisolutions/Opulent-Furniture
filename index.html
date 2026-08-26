@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opulent Furniture — Sit Like Royalty</title>
+<meta name="description" content="Opulent Furniture Pvt Ltd — heirloom-quality furniture handcrafted in Harare, Zimbabwe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFFFFF; --cream-deep:#F5F5F5; --purple-deep:#2E0F49; --purple:#47175F;
+    --purple-soft:#EFE6E9; --gold:#C08F2A; --gold-light:#E3C169; --ink:#221329; --white:#FFFEFB;
+    --line: rgba(46,15,73,0.14); --shadow: 0 24px 48px -24px rgba(46,15,73,0.35);
+    --radius: 22px; --maxw: 1320px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;margin:0;padding:0;}
+  button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;margin:0;font-weight:600;letter-spacing:-0.01em;}
+  p{margin:0;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 48px;}
+  ::selection{background:var(--gold-light);color:var(--purple-deep);}
+  :focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;}
+
+  /* ---- SPA views ---- */
+  .view{display:none;}
+  .view.active{display:block;}
+
+  .eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);font-weight:700;display:flex;align-items:center;gap:8px;}
+  .eyebrow::before{content:"";width:16px;height:1px;background:var(--gold);display:inline-block;}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:100px;font-weight:700;font-size:14.5px;letter-spacing:.01em;transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, background .3s, color .3s;white-space:nowrap;}
+  .btn svg{width:15px;height:15px;flex-shrink:0;}
+  .btn-dark{background:var(--purple-deep);color:var(--cream);}
+  .btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 28px -10px rgba(46,15,73,.55);}
+  .btn-ghost{border:1.5px solid var(--purple-deep);color:var(--purple-deep);}
+  .btn-ghost:hover{background:var(--purple-deep);color:var(--cream);}
+  .btn-gold{background:var(--gold);color:var(--purple-deep);}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+  .btn-sm{padding:10px 18px;font-size:13px;}
+
+  .sprite{position:absolute;width:0;height:0;overflow:hidden;}
+  .fx{stroke:var(--gold);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ---------- HEADER ---------- */
+  .site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .header-inner{max-width:var(--maxw);margin:0 auto;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .logo{display:flex;align-items:center;flex-shrink:0;}
+  .logo img{height:46px;width:auto;}
+  .main-nav ul{display:flex;gap:34px;}
+  .main-nav a{font-size:14.5px;font-weight:600;color:var(--purple-deep);position:relative;padding:4px 0;}
+  .main-nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .3s;}
+  .main-nav a:hover::after,.main-nav a.active::after{width:100%;}
+  .header-actions{display:flex;align-items:center;gap:14px;}
+  .enquire-pill{display:flex;align-items:center;gap:9px;padding:11px 20px 11px 14px;border-radius:100px;background:var(--purple-deep);color:var(--cream);font-size:13.5px;font-weight:700;transition:transform .3s, box-shadow .3s;}
+  .enquire-pill:hover{transform:translateY(-2px);box-shadow:0 14px 24px -10px rgba(46,15,73,.5);}
+  .enquire-pill .ic-wrap{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .enquire-pill svg{width:12px;height:12px;color:var(--purple-deep);}
+  .menu-toggle{display:none;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;background:var(--purple-deep);flex-shrink:0;}
+  .menu-toggle svg{width:18px;height:18px;color:var(--cream);}
+  .mobile-nav{display:none;max-height:0;overflow:hidden;transition:max-height .4s ease;background:var(--white);border-top:1px solid var(--line);}
+  .mobile-nav.open{max-height:480px;}
+  .mobile-nav ul{padding:8px 48px 22px;display:flex;flex-direction:column;gap:2px;}
+  .mobile-nav a{display:block;padding:12px 0;font-size:16px;font-weight:600;border-bottom:1px solid var(--line);color:var(--purple-deep);}
+  .mobile-nav .enquire-pill{margin-top:16px;justify-content:center;}
+
+  /* ---------- PAGE HERO (catalog / contact / product) ---------- */
+  .page-hero{padding:64px 0 46px;position:relative;overflow:hidden;}
+  .page-hero .wrap{position:relative;z-index:2;}
+  .page-hero .bg-word{position:absolute;top:-10px;left:0;right:0;text-align:center;font-family:'Fraunces',serif;font-weight:700;font-size:clamp(70px,13vw,180px);color:var(--purple-deep);opacity:.05;pointer-events:none;user-select:none;white-space:nowrap;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--purple);opacity:.75;margin-bottom:18px;flex-wrap:wrap;}
+  .breadcrumb a:hover{text-decoration:underline;}
+  .breadcrumb .sep{opacity:.5;}
+  .page-hero h1{font-size:clamp(38px,5vw,64px);color:var(--purple-deep);margin-top:10px;}
+  .page-hero .sub{max-width:520px;font-size:16px;line-height:1.6;opacity:.75;margin-top:14px;}
+
+  /* ---------- HOME HERO ---------- */
+  .hero{position:relative;padding:64px 0 40px;overflow:hidden;}
+  .hero-bg-word{position:absolute;top:-4px;left:0;right:0;text-align:center;font-family:'Fraunces',serif;font-weight:700;font-size:clamp(90px,16vw,230px);color:var(--purple-deep);opacity:.05;letter-spacing:-.02em;pointer-events:none;user-select:none;white-space:nowrap;}
+  .hero-inner{max-width:var(--maxw);margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;position:relative;}
+  .hero-copy{position:relative;z-index:2;}
+  .hero h1{font-size:clamp(46px,6.2vw,92px);line-height:.96;color:var(--purple-deep);margin:14px 0 6px;}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--gold);}
+  .swoosh{width:220px;height:26px;display:block;margin-bottom:22px;}
+  .hero-sub{max-width:420px;font-size:16.5px;line-height:1.6;color:var(--ink);opacity:.78;margin-bottom:32px;}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-art{position:relative;display:flex;align-items:center;justify-content:center;z-index:2;}
+  .hero-art-stage{position:relative;width:100%;max-width:480px;aspect-ratio:1/1;border-radius:32px;overflow:hidden;box-shadow:var(--shadow);}
+  .hero-art-stage .media-frame{width:100%;height:100%;object-fit:cover;display:block;}
+  .price-tag{position:absolute;bottom:6%;left:2%;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:12px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;animation:float 5s ease-in-out infinite;}
+  .price-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .price-tag strong{display:block;font-size:13.5px;color:var(--purple-deep);}
+  .price-tag span{font-size:11.5px;color:var(--ink);opacity:.6;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{padding:100px 0;}
+  .section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(32px,4vw,50px);color:var(--purple-deep);}
+  .section-head .head-note{font-size:15px;line-height:1.6;opacity:.72;max-width:420px;justify-self:end;text-align:right;}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--purple-deep);color:var(--cream);border-radius:40px;margin:0 24px;padding:90px 0;}
+  .about .wrap{padding:0 48px;}
+  .about .eyebrow{color:var(--gold-light);}
+  .about .eyebrow::before{background:var(--gold-light);}
+  .about .section-head h2{color:var(--cream);}
+  .about .head-note{color:var(--cream);opacity:.75;}
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;}
+  .about-lede{font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:clamp(22px,2.6vw,30px);line-height:1.45;color:var(--cream);}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;}
+  .stat span{font-family:'Fraunces',serif;font-size:38px;color:var(--gold-light);display:block;}
+  .stat label{font-size:12.5px;opacity:.7;text-transform:uppercase;letter-spacing:.06em;}
+  .about-crest{justify-self:center;width:100%;max-width:280px;aspect-ratio:1;border:1px solid rgba(228,197,105,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;}
+  .about-crest::before{content:"";position:absolute;inset:20px;border:1px dashed rgba(228,197,105,.3);border-radius:50%;}
+  .about-crest svg{width:38%;color:var(--gold-light);}
+
+  /* ---------- COLLECTION / PRODUCT CARDS ---------- */
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .piece-card{background:var(--white);border-radius:var(--radius);padding:30px 28px 26px;border:1px solid var(--line);transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;position:relative;overflow:hidden;}
+  .piece-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);}
+  .piece-card .tag{position:absolute;top:22px;right:22px;background:var(--purple-soft);color:var(--purple-deep);font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:100px;display:flex;align-items:center;gap:5px;}
+  .piece-card .tag svg{width:11px;height:11px;}
+  .piece-stage{height:180px;margin-bottom:20px;border-radius:16px;overflow:hidden;background:var(--cream-deep);}
+  .piece-stage .media-frame{width:100%;height:100%;object-fit:cover;display:block;}
+  .piece-card h3{font-size:22px;color:var(--purple-deep);margin-bottom:6px;}
+  .piece-card p{font-size:14px;line-height:1.55;opacity:.72;margin-bottom:18px;}
+  .piece-foot{display:flex;align-items:center;justify-content:space-between;}
+  .piece-price{font-family:'Fraunces',serif;font-size:19px;color:var(--purple-deep);}
+  .icon-link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--purple);}
+  .icon-link svg{width:13px;height:13px;transition:transform .3s;}
+  .icon-link:hover svg{transform:translate(3px,-3px);}
+  .section-cta{display:flex;justify-content:center;margin-top:44px;}
+
+  /* ---------- MATERIALS ---------- */
+  .mat-tabs{display:flex;gap:10px;margin-bottom:36px;}
+  .mat-tab{padding:11px 22px;border-radius:100px;border:1.5px solid var(--line);font-size:13.5px;font-weight:700;color:var(--purple-deep);background:var(--white);transition:all .3s;}
+  .mat-tab.active,.mat-tab:hover{background:var(--purple-deep);color:var(--cream);border-color:var(--purple-deep);}
+  .swatch-track{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .swatch{display:none;flex-direction:column;gap:12px;}
+  .swatch.show{display:flex;}
+  .swatch-chip{aspect-ratio:1;border-radius:18px;position:relative;overflow:hidden;border:1px solid var(--line);}
+  .swatch-chip::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 3px, transparent 3px 9px);}
+  .swatch span{font-size:12.5px;font-weight:700;color:var(--purple-deep);text-transform:capitalize;}
+  .swatch small{font-size:11px;opacity:.55;display:block;margin-top:-8px;}
+
+  /* ---------- CATALOG GRID ---------- */
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:38px;}
+  .filter-chip{padding:10px 20px;border-radius:100px;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--purple-deep);background:var(--white);transition:all .3s;}
+  .filter-chip.active,.filter-chip:hover{background:var(--gold);border-color:var(--gold);color:var(--purple-deep);}
+  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .product-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:22px;text-align:left;transition:transform .35s, box-shadow .35s;display:flex;flex-direction:column;}
+  .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .product-stage{height:140px;border-radius:14px;margin-bottom:16px;overflow:hidden;background:var(--cream-deep);}
+  .product-stage .media-frame{width:100%;height:100%;object-fit:cover;display:block;}
+  .product-card h4{font-size:16px;color:var(--purple-deep);margin-bottom:4px;font-weight:700;font-family:'Manrope',sans-serif;}
+  .product-card .cat-label{font-size:11.5px;opacity:.55;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;display:block;}
+  .product-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:10px;}
+  .product-foot .price{font-family:'Fraunces',serif;font-size:18px;color:var(--purple-deep);}
+  .product-links{display:flex;gap:8px;}
+  .mini-link{width:38px;height:38px;border-radius:50%;background:var(--purple-soft);color:var(--purple-deep);display:flex;align-items:center;justify-content:center;transition:background .3s, transform .3s;flex-shrink:0;}
+  .mini-link:hover{background:var(--gold);transform:scale(1.08);}
+  .mini-link svg{width:14px;height:14px;}
+  .mini-link.solid{background:var(--purple-deep);color:var(--cream);}
+  .mini-link.solid:hover{background:var(--gold);color:var(--purple-deep);}
+  .catalog-more{margin-top:46px;background:var(--white);border:1px solid var(--line);border-radius:20px;padding:26px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .catalog-more p{font-size:14.5px;opacity:.75;max-width:480px;}
+  .empty-state{text-align:center;padding:60px 20px;opacity:.6;font-size:14.5px;}
+
+  /* ---------- PRODUCT DETAIL ---------- */
+  .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .product-detail-stage{border-radius:28px;aspect-ratio:1/1;overflow:hidden;position:sticky;top:100px;background:var(--cream-deep);}
+  .product-detail-stage .media-frame{width:100%;height:100%;object-fit:cover;display:block;}
+  .product-info .cat-label{font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);font-weight:700;}
+  .product-info h1{font-size:clamp(32px,4vw,46px);color:var(--purple-deep);margin:10px 0 16px;}
+  .product-info .price{font-family:'Fraunces',serif;font-size:28px;color:var(--gold);margin-bottom:22px;display:block;}
+  .product-info .desc{font-size:15.5px;line-height:1.7;opacity:.8;margin-bottom:28px;}
+  .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:30px;}
+  .meta-grid .m-label{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin-bottom:4px;}
+  .meta-grid .m-value{font-size:14.5px;font-weight:700;color:var(--purple-deep);}
+  .product-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+  .not-found{text-align:center;padding:100px 20px;}
+  .not-found h1{font-size:clamp(30px,4vw,44px);color:var(--purple-deep);margin-bottom:14px;}
+  .not-found p{opacity:.72;margin-bottom:26px;}
+  .related-head{margin:100px 0 30px;}
+  .related-head h3{font-size:24px;color:var(--purple-deep);}
+
+  /* ---------- INTERIORS ---------- */
+  .room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .room-scene{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);}
+  .room-scene .media-frame{width:100%;height:100%;object-fit:cover;display:block;}
+  .room-label{position:absolute;left:16px;bottom:16px;background:rgba(255,254,251,.92);padding:8px 14px;border-radius:100px;font-size:12.5px;font-weight:800;color:var(--purple-deep);letter-spacing:.02em;}
+  .hotspot{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--purple-deep);border:3px solid var(--cream);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(46,15,73,.35);z-index:5;}
+  .hotspot svg{width:13px;height:13px;color:var(--gold-light);}
+  .hotspot::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(46,15,73,.4);animation:pulse 2.4s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(.8);opacity:.9;}100%{transform:scale(1.7);opacity:0;}}
+  .hotspot .bubble{position:absolute;bottom:130%;left:50%;transform:translateX(-50%) translateY(6px);background:var(--white);border-radius:12px;padding:10px 14px;width:max-content;max-width:180px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;text-align:left;}
+  .hotspot:hover .bubble,.hotspot:focus .bubble{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+  .hotspot .bubble strong{display:block;font-size:12.5px;color:var(--purple-deep);}
+  .hotspot .bubble span{font-size:11.5px;opacity:.6;}
+  .room-hint{text-align:center;font-size:13px;opacity:.6;margin-top:30px;}
+
+  /* ---------- CONTACT PAGE ---------- */
+  .contact-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start;}
+  .contact-info-card{background:var(--purple-deep);color:var(--cream);border-radius:28px;padding:40px 34px;}
+  .contact-info-card .eyebrow{color:var(--gold-light);}
+  .contact-info-card .eyebrow::before{background:var(--gold-light);}
+  .contact-info-card h3{font-size:24px;color:var(--cream);margin:10px 0 24px;}
+  .info-row{display:flex;gap:14px;padding:16px 0;border-top:1px solid rgba(255,255,255,.14);}
+  .info-row:first-of-type{border-top:none;}
+  .info-row .ic-wrap{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .info-row .ic-wrap svg{width:16px;height:16px;color:var(--gold-light);}
+  .info-row strong{display:block;font-size:14px;margin-bottom:2px;}
+  .info-row span{font-size:13.5px;opacity:.72;line-height:1.5;}
+  .info-row a:hover{color:var(--gold-light);}
+  .map-embed{margin-top:24px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.2);}
+  .map-embed iframe{width:100%;height:180px;border:0;display:block;filter:grayscale(.15);}
+  .map-note{font-size:11.5px;opacity:.55;margin-top:10px;}
+  .enquiry-form{background:var(--white);border:1px solid var(--line);border-radius:28px;padding:40px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:12.5px;font-weight:700;color:var(--purple-deep);text-transform:uppercase;letter-spacing:.04em;}
+  .field input,.field select,.field textarea{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-family:inherit;font-size:14.5px;color:var(--ink);background:var(--cream);transition:border-color .3s;}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);}
+  .field textarea{resize:vertical;min-height:120px;}
+  .form-foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:6px;}
+  .form-note{font-size:12.5px;opacity:.55;max-width:280px;}
+  .success-panel{display:none;text-align:center;padding:50px 20px;}
+  .success-panel.show{display:block;}
+  .success-panel .ic-wrap{width:64px;height:64px;border-radius:50%;background:var(--purple-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+  .success-panel .ic-wrap svg{width:26px;height:26px;color:var(--purple-deep);}
+  .success-panel h3{font-size:24px;color:var(--purple-deep);margin-bottom:10px;}
+  .success-panel p{opacity:.72;font-size:14.5px;max-width:340px;margin:0 auto 22px;}
+  .enquiry-form.hide-form{display:none;}
+  .alt-contact{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--purple-deep);color:var(--cream);margin-top:40px;border-radius:40px 40px 0 0;padding:80px 0 0;}
+  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.14);}
+  .footer-brand img{height:44px;margin-bottom:16px;filter:brightness(0) invert(1);opacity:.95;}
+  .footer-brand p{font-size:14px;line-height:1.6;opacity:.68;max-width:280px;}
+  .footer-col h5{font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-light);margin-bottom:18px;}
+  .footer-col ul{display:flex;flex-direction:column;gap:11px;}
+  .footer-col a{font-size:14px;opacity:.78;transition:opacity .3s;}
+  .footer-col a:hover{opacity:1;color:var(--gold-light);}
+  .news-form{display:flex;margin-top:14px;border-bottom:1.5px solid rgba(255,255,255,.35);padding-bottom:10px;}
+  .news-form input{background:none;border:none;color:var(--cream);flex:1;font-size:14px;font-family:inherit;}
+  .news-form input::placeholder{color:rgba(255,255,255,.5);}
+  .news-form button{color:var(--gold-light);flex-shrink:0;}
+  .news-form button svg{width:17px;height:17px;}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:26px 0;font-size:12.5px;opacity:.6;flex-wrap:wrap;gap:10px;}
+  .footer-bottom .socials{display:flex;gap:16px;}
+  .footer-bottom .socials a{opacity:1;}
+  .footer-bottom .socials svg{width:16px;height:16px;}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}html{scroll-behavior:auto;}}
+
+  /* =================== TABLET =================== */
+  @media (max-width:980px){
+    .wrap,.header-inner,.hero-inner{padding-left:32px;padding-right:32px;}
+    .about .wrap{padding-left:32px;padding-right:32px;}
+    .main-nav{display:none;}
+    .menu-toggle{display:flex;}
+    .header-actions .enquire-pill{display:none;}
+    .mobile-nav{display:block;}
+    .hero-inner{grid-template-columns:1fr;text-align:left;}
+    .hero-art{order:-1;margin-bottom:10px;}
+    .hero-art-stage{max-width:340px;}
+    .section-head{grid-template-columns:1fr;gap:16px;}
+    .section-head .head-note{justify-self:start;text-align:left;}
+    .about-grid{grid-template-columns:1fr;}
+    .about-crest{order:-1;max-width:180px;}
+    .card-grid{grid-template-columns:repeat(2,1fr);}
+    .swatch-track{grid-template-columns:repeat(3,1fr);}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .room-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto;}
+    .footer-top{grid-template-columns:1fr 1fr;}
+    .product-detail{grid-template-columns:1fr;gap:36px;}
+    .product-detail-stage{position:static;max-width:420px;margin:0 auto;}
+    .contact-layout{grid-template-columns:1fr;}
+  }
+
+  /* =================== MOBILE =================== */
+  @media (max-width:640px){
+    .wrap,.header-inner,.hero-inner{padding-left:20px;padding-right:20px;}
+    .about .wrap{padding-left:20px;padding-right:20px;}
+    section{padding:64px 0;}
+    .header-inner{padding-top:12px;padding-bottom:12px;}
+    .logo img{height:36px;}
+    .hero{padding-top:40px;}
+    .hero h1{font-size:clamp(38px,13vw,54px);}
+    .hero-sub{max-width:100%;}
+    .hero-cta{flex-direction:column;align-items:stretch;}
+    .hero-cta .btn{justify-content:center;}
+    .about{margin:0 12px;border-radius:28px;padding:56px 0;}
+    .stat-row{grid-template-columns:1fr;gap:20px;}
+    .card-grid{grid-template-columns:1fr;}
+    .swatch-track{grid-template-columns:repeat(2,1fr);}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .product-card{padding:16px;}
+    .filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;margin:0 -20px 30px;padding-left:20px;padding-right:20px;}
+    .filter-chip{flex-shrink:0;}
+    .catalog-more{flex-direction:column;align-items:flex-start;}
+    .footer-top{grid-template-columns:1fr;gap:36px;padding-bottom:40px;}
+    footer{border-radius:28px 28px 0 0;padding-top:56px;}
+    .price-tag{left:50%;transform:translateX(-50%);bottom:2%;}
+    .form-row{grid-template-columns:1fr;}
+    .enquiry-form{padding:26px 22px;}
+    .contact-info-card{padding:30px 24px;}
+    .page-hero{padding-top:40px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ ICON SPRITE ============ -->
+<svg class="sprite" aria-hidden="true">
+<defs>
+<symbol id="ic-crown" viewBox="0 0 100 100"><path class="fx" fill="var(--purple-deep)" d="M12 40 L26 58 L34 34 L50 54 L66 34 L74 58 L88 40 L82 74 L18 74 Z"/></symbol>
+<symbol id="ic-menu" viewBox="0 0 24 24"><path class="fx" fill="none" d="M3 6h18M3 12h18M3 18h18"/></symbol>
+<symbol id="ic-close" viewBox="0 0 24 24"><path class="fx" fill="none" d="M5 5l14 14M19 5 5 19"/></symbol>
+<symbol id="ic-arrow" viewBox="0 0 24 24"><path class="fx" fill="none" d="M6 18 18 6M9 6h9v9"/></symbol>
+<symbol id="ic-plus" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M12 5v14M5 12h14"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path class="fx" fill="none" d="M4 12l5 5L20 6"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M3 6h18v12H3z"/><path class="fx" fill="none" stroke="currentColor" d="M3 7l9 6 9-6"/></symbol>
+<symbol id="ic-phone" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2C10.5 21 3 13.5 3 6a2 2 0 0 1 2-2Z"/></symbol>
+<symbol id="ic-pin" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M12 21s7-7.2 7-12a7 7 0 0 0-14 0c0 4.8 7 12 7 12Z"/><circle class="fx" cx="12" cy="9" r="2.4" fill="none" stroke="currentColor"/></symbol>
+<symbol id="ic-clock" viewBox="0 0 24 24"><circle class="fx" cx="12" cy="12" r="9" fill="none" stroke="currentColor"/><path class="fx" fill="none" stroke="currentColor" d="M12 7v5l4 2"/></symbol>
+<symbol id="ic-whatsapp" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M4 20l1.4-4.2A8 8 0 1 1 8.7 19L4 20Z"/><path class="fx" fill="none" stroke="currentColor" d="M9 9c0 3.5 2.5 6 6 6"/></symbol>
+<symbol id="ic-armchair" viewBox="0 0 200 200">
+  <path fill="var(--purple)" d="M46 70 C46 52 58 40 78 40 H122 C142 40 154 52 154 70 V118 H46 Z"/>
+  <path class="fx" fill="none" d="M46 70 C46 52 58 40 78 40 H122 C142 40 154 52 154 70"/>
+  <path fill="var(--purple-deep)" d="M30 96 C30 86 38 78 48 78 H60 V150 H30 Z"/>
+  <path fill="var(--purple-deep)" d="M170 96 C170 86 162 78 152 78 H140 V150 H170 Z"/>
+  <rect x="46" y="118" width="108" height="34" rx="10" fill="var(--purple-soft)"/>
+  <path class="fx" fill="none" d="M46 130 H154"/>
+  <path class="fx" fill="none" d="M38 150 L34 176 M162 150 L166 176 M70 152 L68 176 M130 152 L132 176"/>
+  <path class="fx" fill="none" d="M78 55 V95 M122 55 V95" opacity=".7"/>
+</symbol>
+<symbol id="ic-lounge" viewBox="0 0 200 160">
+  <path fill="var(--purple)" d="M20 92 C20 60 46 40 78 40 C96 40 108 50 108 64 C108 50 120 40 138 40 C168 40 182 62 178 92 Z"/>
+  <path class="fx" fill="none" d="M20 92 C20 60 46 40 78 40 C96 40 108 50 108 64 C108 50 120 40 138 40 C168 40 182 62 178 92"/>
+  <rect x="18" y="92" width="164" height="26" rx="13" fill="var(--purple-deep)"/>
+  <path class="fx" fill="none" d="M40 118 L34 138 M160 118 L166 138"/>
+  <circle cx="100" cy="70" r="3" fill="var(--gold)"/>
+</symbol>
+<symbol id="ic-woodchair" viewBox="0 0 140 200">
+  <rect x="34" y="20" width="72" height="10" rx="4" fill="var(--purple-deep)"/>
+  <path class="fx" fill="none" d="M40 30 V96 M70 30 V96 M100 30 V96"/>
+  <rect x="26" y="96" width="88" height="14" rx="5" fill="var(--purple)"/>
+  <path class="fx" fill="none" d="M30 110 L20 178 M110 110 L120 178 M46 110 V150 M94 110 V150"/>
+  <path class="fx" fill="none" d="M20 150 H120" opacity=".8"/>
+</symbol>
+<symbol id="ic-sofa" viewBox="0 0 220 140">
+  <path fill="var(--purple)" d="M20 55 C20 40 32 30 48 30 H172 C188 30 200 40 200 55 V90 H20 Z"/>
+  <path class="fx" fill="none" d="M20 55 C20 40 32 30 48 30 H172 C188 30 200 40 200 55"/>
+  <path fill="var(--purple-deep)" d="M8 66 C8 58 14 52 22 52 H30 V108 H8 Z"/>
+  <path fill="var(--purple-deep)" d="M212 66 C212 58 206 52 198 52 H190 V108 H212 Z"/>
+  <rect x="20" y="90" width="180" height="24" rx="10" fill="var(--purple-soft)"/>
+  <path class="fx" fill="none" d="M83 90 V114 M137 90 V114"/>
+  <path class="fx" fill="none" d="M14 108 L10 128 M206 108 L210 128 M50 114 L48 128 M170 114 L172 128"/>
+</symbol>
+<symbol id="ic-dresser" viewBox="0 0 160 180">
+  <rect x="16" y="20" width="128" height="140" rx="8" fill="var(--purple)"/>
+  <path class="fx" fill="none" d="M16 66 H144 M16 108 H144"/>
+  <rect x="30" y="40" width="46" height="10" rx="3" fill="var(--gold)"/>
+  <rect x="84" y="40" width="46" height="10" rx="3" fill="var(--gold)"/>
+  <rect x="30" y="82" width="100" height="10" rx="3" fill="var(--gold)"/>
+  <rect x="30" y="124" width="100" height="10" rx="3" fill="var(--gold)"/>
+  <path class="fx" fill="none" d="M20 160 L14 172 M140 160 L146 172"/>
+</symbol>
+<symbol id="ic-wardrobe" viewBox="0 0 160 200">
+  <rect x="18" y="14" width="124" height="172" rx="6" fill="var(--purple)"/>
+  <path class="fx" fill="none" d="M80 14 V186"/>
+  <rect x="34" y="60" width="6" height="26" rx="3" fill="var(--gold)"/>
+  <rect x="120" y="60" width="6" height="26" rx="3" fill="var(--gold)"/>
+  <path class="fx" fill="none" d="M18 140 H142"/>
+  <rect x="30" y="150" width="100" height="10" rx="3" fill="var(--gold)"/>
+  <rect x="30" y="168" width="100" height="10" rx="3" fill="var(--gold)"/>
+</symbol>
+<symbol id="ic-shelf" viewBox="0 0 180 160">
+  <rect x="16" y="14" width="148" height="132" rx="4" fill="var(--purple)"/>
+  <path class="fx" fill="none" d="M16 58 H164 M16 102 H164"/>
+  <rect x="28" y="24" width="18" height="26" rx="3" fill="var(--gold)"/>
+  <rect x="52" y="30" width="14" height="20" rx="3" fill="var(--gold-light)"/>
+  <circle cx="140" cy="80" r="9" fill="var(--gold)"/>
+  <rect x="30" y="112" width="34" height="20" rx="3" fill="var(--gold-light)"/>
+</symbol>
+<symbol id="ic-table" viewBox="0 0 200 130">
+  <rect x="10" y="30" width="180" height="14" rx="7" fill="var(--purple)"/>
+  <path class="fx" fill="none" d="M28 44 L20 110 M172 44 L180 110 M76 44 L72 110 M124 44 L128 110"/>
+</symbol>
+</defs>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="#/" data-route="" aria-label="Opulent Furniture home">
+      <img src="data:image/webp;base64,LOGO_BASE64_PLACEHOLDER" alt="Opulent Furniture Pvt Ltd">
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#/" data-route="">Home</a></li>
+        <li><a href="#/catalog" data-route="catalog">Catalog</a></li>
+        <li><a href="#/about" data-route="about">Who We Are</a></li>
+        <li><a href="#/materials" data-route="materials">Materials</a></li>
+        <li><a href="#/contact" data-route="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="enquire-pill" href="#/contact" data-route="contact">
+        <span class="ic-wrap"><svg><use href="#ic-mail"/></svg></span>
+        Enquire
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <svg><use href="#ic-menu"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul>
+      <li><a href="#/" data-route="">Home</a></li>
+      <li><a href="#/catalog" data-route="catalog">Catalog</a></li>
+      <li><a href="#/about" data-route="about">Who We Are</a></li>
+      <li><a href="#/materials" data-route="materials">Materials</a></li>
+      <li><a href="#/contact" data-route="contact">Contact</a></li>
+    </ul>
+    <a class="enquire-pill" href="#/contact" data-route="contact">
+      <span class="ic-wrap"><svg><use href="#ic-mail"/></svg></span>
+      Enquire Now
+    </a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================================================ -->
+<!-- ===================== VIEW: HOME ============================ -->
+<!-- ============================================================ -->
+<div class="view active" data-view="home">
+
+  <section class="hero">
+    <p class="hero-bg-word">OPULENT</p>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">the regent collection</p>
+        <h1>Sit Like<br><em>Royalty</em></h1>
+        <svg class="swoosh" viewBox="0 0 220 26" fill="none" aria-hidden="true">
+          <path d="M2 6 C50 26 90 26 120 12 C150 -2 190 2 218 18" stroke="url(#swooshGrad)" stroke-width="4" stroke-linecap="round"/>
+          <defs><linearGradient id="swooshGrad" x1="0" y1="0" x2="220" y2="0">
+            <stop offset="0" stop-color="#47175F"/><stop offset="1" stop-color="#C08F2A"/>
+          </linearGradient></defs>
+        </svg>
+        <p class="hero-sub">Handcrafted in Harare for households that don't do ordinary. Every Opulent piece pairs royal detailing with everyday comfort — built to be handed down, not replaced.</p>
+        <div class="hero-cta">
+          <a class="btn btn-dark" href="#/catalog" data-route="catalog">Shop the catalog <svg><use href="#ic-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#/gallery" data-route="gallery">View interiors</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-art-stage">
+          <img class="media-frame" src="https://images.pexels.com/photos/5997975/pexels-photo-5997975.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Regent Armchair" loading="lazy">
+          <a class="price-tag" href="#/product?id=regent-armchair">
+            <span class="dot"></span>
+            <div><strong>Regent Armchair</strong><span>$680 · velvet, oak</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about reveal" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">01 / who we are</p>
+        <h2>What About Us</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p class="about-lede">"Furniture shaped by heritage, not trends — soft where it should be, structured where it counts, and finished for a lifetime in the room."</p>
+          <div class="stat-row">
+            <div class="stat"><span>14</span><label>years crafting in Harare</label></div>
+            <div class="stat"><span>1,000+</span><label>pieces delivered nationwide</label></div>
+            <div class="stat"><span>5yr</span><label>heirloom frame warranty</label></div>
+          </div>
+        </div>
+        <div class="about-crest"><svg><use href="#ic-crown"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="new">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">02 / fresh collection</p><h2>What's New</h2></div>
+        <p class="head-note">Softer forms, thoughtful comfort. Our new collection focuses on balance, material and quiet grandeur.</p>
+      </div>
+      <div class="card-grid">
+        <article class="piece-card reveal">
+          <span class="tag"><svg><use href="#ic-crown"/></svg>signature</span>
+          <div class="piece-stage"><img class="media-frame" src="https://images.pexels.com/photos/5997975/pexels-photo-5997975.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Regent Armchair" loading="lazy"></div>
+          <h3>Regent</h3>
+          <p>Low, embracing armchair carved for slow evenings and long conversations.</p>
+          <div class="piece-foot"><span class="piece-price">$680</span><a class="icon-link" href="#/product?id=regent-armchair">view piece <svg><use href="#ic-arrow"/></svg></a></div>
+        </article>
+        <article class="piece-card reveal">
+          <div class="piece-stage"><img class="media-frame" src="https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Windsor Lounge Chair" loading="lazy"></div>
+          <h3>Windsor</h3>
+          <p>Modular lounge chair with a wide, generous seat built for two.</p>
+          <div class="piece-foot"><span class="piece-price">$540</span><a class="icon-link" href="#/product?id=windsor-lounge">view piece <svg><use href="#ic-arrow"/></svg></a></div>
+        </article>
+        <article class="piece-card reveal">
+          <div class="piece-stage"><img class="media-frame" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Baroque Dining Chair" loading="lazy"></div>
+          <h3>Baroque</h3>
+          <p>Solid oak dining chair with a hand-carved ladder back.</p>
+          <div class="piece-foot"><span class="piece-price">$310</span><a class="icon-link" href="#/product?id=baroque-chair">view piece <svg><use href="#ic-arrow"/></svg></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="materials">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">03 / materials</p><h2>What Is It Made Of</h2></div>
+        <p class="head-note">Every finish is chosen for Harare's climate first, its looks second — though it rarely has to choose.</p>
+      </div>
+      <div class="mat-tabs reveal" role="tablist">
+        <button class="mat-tab active" data-tab="textile" role="tab" aria-selected="true">Textile</button>
+        <button class="mat-tab" data-tab="wood" role="tab" aria-selected="false">Wood</button>
+        <button class="mat-tab" data-tab="hardware" role="tab" aria-selected="false">Hardware</button>
+      </div>
+      <div class="swatch-track reveal">
+        <div class="swatch show" data-group="textile"><div class="swatch-chip" style="background:#4B1E63"></div><span>Royal Velvet</span><small>plush, stain-guard</small></div>
+        <div class="swatch show" data-group="textile"><div class="swatch-chip" style="background:#B78A34"></div><span>Chenille Gold</span><small>soft, durable</small></div>
+        <div class="swatch show" data-group="textile"><div class="swatch-chip" style="background:#8C5A3C"></div><span>Corduroy</span><small>textured, warm</small></div>
+        <div class="swatch show" data-group="textile"><div class="swatch-chip" style="background:#DCC79A"></div><span>Boucle Cream</span><small>breathable weave</small></div>
+        <div class="swatch show" data-group="textile"><div class="swatch-chip" style="background:#2E0F49"></div><span>Linen Midnight</span><small>UV-resistant</small></div>
+        <div class="swatch" data-group="wood"><div class="swatch-chip" style="background:#6B4226"></div><span>Zimbabwean Teak</span><small>hand-oiled</small></div>
+        <div class="swatch" data-group="wood"><div class="swatch-chip" style="background:#8C6239"></div><span>Msasa Oak</span><small>locally sourced</small></div>
+        <div class="swatch" data-group="wood"><div class="swatch-chip" style="background:#3E2A1E"></div><span>Ebony Stain</span><small>deep matte finish</small></div>
+        <div class="swatch" data-group="wood"><div class="swatch-chip" style="background:#B08D5B"></div><span>Honey Walnut</span><small>warm satin</small></div>
+        <div class="swatch" data-group="wood"><div class="swatch-chip" style="background:#5C4632"></div><span>Mukwa</span><small>termite-resistant</small></div>
+        <div class="swatch" data-group="hardware"><div class="swatch-chip" style="background:#C08F2A"></div><span>Brushed Gold</span><small>tarnish-proof</small></div>
+        <div class="swatch" data-group="hardware"><div class="swatch-chip" style="background:#8A8A8A"></div><span>Pewter</span><small>matte hardware</small></div>
+        <div class="swatch" data-group="hardware"><div class="swatch-chip" style="background:#3A3A3A"></div><span>Matte Black</span><small>powder-coated</small></div>
+        <div class="swatch" data-group="hardware"><div class="swatch-chip" style="background:#D8C08A"></div><span>Antique Brass</span><small>hand-finished</small></div>
+        <div class="swatch" data-group="hardware"><div class="swatch-chip" style="background:#5A4632"></div><span>Bronze</span><small>cast fittings</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalog-teaser">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">04 / catalog</p><h2>What We Provide</h2></div>
+        <p class="head-note">A few customer favourites — the full catalog runs well past these.</p>
+      </div>
+      <div class="product-grid reveal" id="teaserGrid"></div>
+      <div class="catalog-more reveal">
+        <p>We keep over 60 more pieces in the Harare showroom, from dining sets to bedroom suites.</p>
+        <a class="btn btn-gold" href="#/catalog" data-route="catalog">View full catalog <svg><use href="#ic-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><p class="eyebrow">05 / portfolio</p><h2>What About Real Interiors</h2></div>
+        <p class="head-note">A few rooms we've furnished for clients across Harare — hover a room to see what's in it.</p>
+      </div>
+      <div class="room-grid reveal">
+        <div class="room-scene">
+          <img class="media-frame" src="https://images.pexels.com/photos/6969866/pexels-photo-6969866.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Living room furnished by Opulent" loading="lazy">
+          <a class="hotspot" style="left:58%;top:52%" href="#/product?id=regent-armchair" aria-label="Regent Armchair details"><svg><use href="#ic-plus"/></svg><span class="bubble"><strong>Regent Armchair</strong><span>$680</span></span></a>
+          <a class="hotspot" style="left:30%;top:66%" href="#/product?id=gallery-shelf" aria-label="Gallery Shelf details"><svg><use href="#ic-plus"/></svg><span class="bubble"><strong>Gallery Shelf</strong><span>$360</span></span></a>
+          <span class="room-label">Living Room</span>
+        </div>
+        <div class="room-scene">
+          <img class="media-frame" src="https://images.pexels.com/photos/6312079/pexels-photo-6312079.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Bedroom furnished by Opulent" loading="lazy">
+          <a class="hotspot" style="left:50%;top:48%" href="#/product?id=palace-wardrobe" aria-label="Palace Wardrobe details"><svg><use href="#ic-plus"/></svg><span class="bubble"><strong>Palace Wardrobe</strong><span>$1,180</span></span></a>
+          <a class="hotspot" style="left:74%;top:70%" href="#/product?id=sovereign-dresser" aria-label="Sovereign Dresser details"><svg><use href="#ic-plus"/></svg><span class="bubble"><strong>Sovereign Dresser</strong><span>$890</span></span></a>
+          <span class="room-label">Bedroom</span>
+        </div>
+        <div class="room-scene">
+          <img class="media-frame" src="https://images.pexels.com/photos/2079233/pexels-photo-2079233.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Dining room furnished by Opulent" loading="lazy">
+          <a class="hotspot" style="left:44%;top:58%" href="#/product?id=linea-chair" aria-label="Linea Chair details"><svg><use href="#ic-plus"/></svg><span class="bubble"><strong>Linea Chair</strong><span>$420</span></span></a>
+          <a class="hotspot" style="left:64%;top:44%" href="#/product?id=heritage-chair" aria-label="Heritage Chair details"><svg><use href="#ic-plus"/></svg><span class="bubble"><strong>Heritage Chair</strong><span>$560</span></span></a>
+          <span class="room-label">Dining Room</span>
+        </div>
+      </div>
+      <p class="room-hint">Tap or hover a marker to see what's furnishing the room.</p>
+    </div>
+  </section>
+
+</div>
+<!-- ===================== /VIEW: HOME ============================ -->
+
+<!-- ============================================================ -->
+<!-- ===================== VIEW: CATALOG ========================== -->
+<!-- ============================================================ -->
+<div class="view" data-view="catalog">
+  <section class="page-hero">
+    <p class="bg-word">CATALOG</p>
+    <div class="wrap">
+      <div class="breadcrumb"><a href="#/" data-route="">Home</a><span class="sep">/</span><span>Catalog</span></div>
+      <p class="eyebrow">the full collection</p>
+      <h1>What We Provide</h1>
+      <p class="sub">Every piece we currently make, from dining chairs to full wardrobes. Filter by category, then enquire — we'll confirm stock, lead time, and delivery to your area.</p>
+    </div>
+  </section>
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="filter-row" id="filterRow">
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="chairs">Chairs</button>
+        <button class="filter-chip" data-filter="armchairs">Armchairs</button>
+        <button class="filter-chip" data-filter="sofas">Sofas</button>
+        <button class="filter-chip" data-filter="dressers">Dressers</button>
+        <button class="filter-chip" data-filter="wardrobes">Wardrobes</button>
+        <button class="filter-chip" data-filter="shelves">Shelves</button>
+        <button class="filter-chip" data-filter="tables">Tables</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="catalog-more">
+        <p>Don't see quite the right size or finish? We take custom commissions on most pieces in the Regent-era collection.</p>
+        <a class="btn btn-gold" href="#/contact" data-route="contact">Enquire about a custom piece <svg><use href="#ic-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ===================== /VIEW: CATALOG ========================== -->
+
+<!-- ============================================================ -->
+<!-- ===================== VIEW: PRODUCT =========================== -->
+<!-- ============================================================ -->
+<div class="view" data-view="product">
+  <section class="page-hero" style="padding-bottom:0;"><p class="bg-word">PIECE</p></section>
+  <section style="padding-top:20px;">
+    <div class="wrap" id="productRoot"></div>
+    <div class="wrap" id="relatedWrap"></div>
+  </section>
+</div>
+<!-- ===================== /VIEW: PRODUCT =========================== -->
+
+<!-- ============================================================ -->
+<!-- ===================== VIEW: CONTACT ============================ -->
+<!-- ============================================================ -->
+<div class="view" data-view="contact">
+  <section class="page-hero">
+    <p class="bg-word">CONTACT</p>
+    <div class="wrap">
+      <div class="breadcrumb"><a href="#/" data-route="">Home</a><span class="sep">/</span><span>Contact</span></div>
+      <p class="eyebrow">get in touch</p>
+      <h1>Visit the Showroom</h1>
+      <p class="sub">Send an enquiry below and our team will confirm stock, pricing, and delivery — usually within one business day. Prefer to talk? Call or WhatsApp us directly.</p>
+    </div>
+  </section>
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="contact-layout">
+        <div class="contact-info-card reveal">
+          <p class="eyebrow">showroom &amp; contact</p>
+          <h3>Opulent Furniture Pvt Ltd</h3>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-pin"/></svg></span><div><strong>Showroom address</strong><span>24 Enterprise Road, Highlands, Harare, Zimbabwe<br><em style="opacity:.7;font-style:italic;">(placeholder — update to your real address)</em></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-phone"/></svg></span><div><strong>Phone</strong><span><a href="tel:+263771234567">+263 77 123 4567</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-whatsapp"/></svg></span><div><strong>WhatsApp</strong><span><a href="https://wa.me/263771234567" target="_blank" rel="noopener">Chat with us</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-mail"/></svg></span><div><strong>Email</strong><span><a href="mailto:hello@opulentfurniture.co.zw">hello@opulentfurniture.co.zw</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-clock"/></svg></span><div><strong>Showroom hours</strong><span>Mon–Fri, 8:30–17:00 · Sat, 9:00–13:00</span></div></div>
+          <div class="map-embed"><iframe src="https://www.google.com/maps?q=Enterprise+Road,+Highlands,+Harare,+Zimbabwe&output=embed" loading="lazy" title="Opulent Furniture showroom location"></iframe></div>
+          <p class="map-note">Map pin is approximate — swap in your exact showroom address before launch.</p>
+        </div>
+
+        <div style="position:relative;">
+          <form class="enquiry-form reveal" id="enquiryForm">
+            <div class="form-row">
+              <div class="field"><label for="fname">Full name</label><input type="text" id="fname" name="fname" required placeholder="Your name"></div>
+              <div class="field"><label for="femail">Email</label><input type="email" id="femail" name="femail" required placeholder="you@example.com"></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="fphone">Phone (optional)</label><input type="tel" id="fphone" name="fphone" placeholder="+263 ..."></div>
+              <div class="field"><label for="productInterest">Piece you're interested in</label><select id="productInterest" name="productInterest"><option value="General enquiry">General enquiry</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="field full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Tell us what you're looking for, your area for delivery, and any timing you have in mind."></textarea></div>
+            </div>
+            <div class="form-foot">
+              <p class="form-note">We reply within one business day. No account or payment needed to enquire.</p>
+              <button class="btn btn-dark" type="submit">Send enquiry <svg><use href="#ic-arrow"/></svg></button>
+            </div>
+          </form>
+          <div class="enquiry-form success-panel" id="successPanel">
+            <div class="ic-wrap"><svg><use href="#ic-check"/></svg></div>
+            <h3>Enquiry received</h3>
+            <p>Thank you — a member of the Opulent team will get back to you within one business day to confirm details.</p>
+            <div class="alt-contact">
+              <a class="btn btn-ghost btn-sm" href="mailto:hello@opulentfurniture.co.zw">Email us instead</a>
+              <a class="btn btn-ghost btn-sm" href="https://wa.me/263771234567" target="_blank" rel="noopener">WhatsApp us instead</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ===================== /VIEW: CONTACT ============================ -->
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="data:image/webp;base64,LOGO_BASE64_PLACEHOLDER" alt="Opulent Furniture Pvt Ltd">
+        <p>Heirloom-quality furniture, handcrafted in Harare and delivered across Zimbabwe. Furniture worthy of a crown.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#/catalog" data-route="catalog">Full Catalog</a></li>
+          <li><a href="#/new" data-route="new">What's New</a></li>
+          <li><a href="#/materials" data-route="materials">Materials</a></li>
+          <li><a href="#/gallery" data-route="gallery">Interiors</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#/about" data-route="about">Who We Are</a></li>
+          <li><a href="#/contact" data-route="contact">Visit the Showroom</a></li>
+          <li><a href="#/contact" data-route="contact">Delivery &amp; Care</a></li>
+          <li><a href="#/contact" data-route="contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Stay Updated</h5>
+        <p style="font-size:14px;opacity:.72;">New pieces, first look, straight to your inbox.</p>
+        <form class="news-form" onsubmit="return false;">
+          <input type="email" placeholder="your@email.com" aria-label="Email address">
+          <button type="submit" aria-label="Subscribe"><svg><use href="#ic-arrow"/></svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Opulent Furniture Pvt Ltd · Harare, Zimbabwe</span>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="WhatsApp">WA</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   OPULENT FURNITURE — product data + single-page router
+   Edit PRODUCTS below to add, remove, or reprice pieces.
+   ============================================================ */
+const PRODUCTS = [
+  { id:"regent-armchair", photoId:5997975, name:"Regent", fullName:"Regent Armchair", category:"armchairs", price:680, icon:"ic-armchair", featured:true, signature:true,
+    blurb:"Low, embracing armchair carved for slow evenings and long conversations.",
+    description:"The piece that started the Regent-era collection. A wide, low seat wrapped in royal velvet, set on a hand-turned oak frame that's built to take weight for decades, not years. Upholstered by hand in our Harare workshop.",
+    materials:["Royal velvet upholstery","Solid oak frame","Brushed gold feet caps"], dimensions:"82 × 78 × 90 cm (W × D × H)", lead:"3–4 weeks, made to order" },
+  { id:"windsor-lounge", photoId:6585744, name:"Windsor", fullName:"Windsor Lounge Chair", category:"armchairs", price:540, icon:"ic-lounge", featured:true,
+    blurb:"Modular lounge chair with a wide, generous seat built for two.",
+    description:"A wide-bodied lounge chair designed for reading corners and sunroom afternoons. The chenille upholstery is treated for Harare's dry season and wipes clean easily. Comes with two matching scatter cushions.",
+    materials:["Chenille gold upholstery","Kiln-dried hardwood frame","High-density foam fill"], dimensions:"108 × 86 × 74 cm (W × D × H)", lead:"2–3 weeks, made to order" },
+  { id:"baroque-chair", photoId:963486, name:"Baroque", fullName:"Baroque Dining Chair", category:"chairs", price:310, icon:"ic-woodchair", featured:false, signature:true,
+    blurb:"Solid oak dining chair with a hand-carved ladder back.",
+    description:"Our most-ordered dining chair. A hand-carved ladder back in solid Msasa oak, finished with an ebony stain that resists scuffing at the table. Sold individually — matches perfectly around the Regency Dining Table.",
+    materials:["Solid Msasa oak","Ebony matte stain","Reinforced mortise-and-tenon joints"], dimensions:"46 × 52 × 96 cm (W × D × H)", lead:"1–2 weeks, usually in stock" },
+  { id:"linea-chair", photoId:15365731, name:"Linea", fullName:"Linea Chair", category:"chairs", price:420, icon:"ic-woodchair", featured:true,
+    blurb:"Clean-lined dining chair that pairs with almost any table.",
+    description:"A quieter dining chair for households that want the Opulent build quality without the ornamentation. Straight lines, a slightly padded seat, and a walnut finish that sits well against most existing furniture.",
+    materials:["Honey walnut wood","Padded seat pad","Anti-slip foot caps"], dimensions:"44 × 50 × 92 cm (W × D × H)", lead:"1–2 weeks, usually in stock" },
+  { id:"heritage-chair", photoId:696407, name:"Heritage", fullName:"Heritage Chair", category:"chairs", price:560, icon:"ic-woodchair", featured:false,
+    blurb:"Upholstered dining chair with a carved teak frame.",
+    description:"A dining chair for the head of the table. Carved teak frame with a fully upholstered seat and back, so it holds its own next to an armchair without looking out of place.",
+    materials:["Zimbabwean teak frame","Boucle cream upholstery","Brass stud detailing"], dimensions:"50 × 54 × 98 cm (W × D × H)", lead:"3 weeks, made to order" },
+  { id:"monarch-chair", photoId:7193573, name:"Monarch", fullName:"Monarch Dining Chair", category:"chairs", price:380, icon:"ic-woodchair", featured:false,
+    blurb:"Curved-back dining chair with a woven cane detail.",
+    description:"A lighter dining chair with a curved backrest and a hand-woven cane panel, for tables that need a chair that doesn't visually crowd the room.",
+    materials:["Mukwa wood frame","Hand-woven cane back","Water-based sealant finish"], dimensions:"45 × 51 × 90 cm (W × D × H)", lead:"2 weeks, usually in stock" },
+  { id:"duchess-sofa", photoId:6312357, name:"Duchess", fullName:"Duchess Sofa", category:"sofas", price:1450, icon:"ic-sofa", featured:true, signature:true,
+    blurb:"Three-seat sofa built as the anchor of the living room.",
+    description:"The centrepiece sofa of the Regent-era collection. Deep-seated, three cushions, with a hardwood frame under the upholstery that's rated for daily family use — not just showroom sitting.",
+    materials:["Linen midnight upholstery","Hardwood internal frame","High-resilience foam + feather top"], dimensions:"212 × 96 × 84 cm (W × D × H)", lead:"4–5 weeks, made to order" },
+  { id:"empress-sofa", photoId:4915583, name:"Empress", fullName:"Empress 2-Seat Sofa", category:"sofas", price:1180, icon:"ic-sofa", featured:false,
+    blurb:"Compact two-seat sofa for smaller living rooms and flats.",
+    description:"A shorter version of the Duchess, built for Harare flats and second lounges where a full three-seater won't fit. Same frame quality, smaller footprint.",
+    materials:["Corduroy upholstery","Hardwood internal frame","High-resilience foam fill"], dimensions:"168 × 92 × 84 cm (W × D × H)", lead:"3–4 weeks, made to order" },
+  { id:"sovereign-dresser", photoId:10397037, name:"Sovereign", fullName:"Sovereign Dresser", category:"dressers", price:890, icon:"ic-dresser", featured:true,
+    blurb:"Six-drawer dresser with brushed gold hardware.",
+    description:"A six-drawer dresser sized for a main bedroom. Drawers run on soft-close runners so they don't slam, and the brushed gold handles are tarnish-proof for humid seasons.",
+    materials:["Solid Msasa oak","Soft-close drawer runners","Brushed gold hardware"], dimensions:"150 × 46 × 82 cm (W × D × H)", lead:"3 weeks, made to order" },
+  { id:"crown-dresser", photoId:6333856, name:"Crown", fullName:"Crown 3-Drawer Dresser", category:"dressers", price:620, icon:"ic-dresser", featured:false,
+    blurb:"Three-drawer dresser sized for guest rooms and small bedrooms.",
+    description:"A smaller dresser for guest rooms, kids' rooms, or a second bedroom, without dropping the build quality of the larger Sovereign.",
+    materials:["Honey walnut wood","Antique brass handles","Dust-sealed drawer boxes"], dimensions:"100 × 44 × 78 cm (W × D × H)", lead:"2–3 weeks, made to order" },
+  { id:"palace-wardrobe", photoId:19050707, name:"Palace", fullName:"Palace Double Wardrobe", category:"wardrobes", price:1180, icon:"ic-wardrobe", featured:true, signature:true,
+    blurb:"Double-door wardrobe with a full hanging rail and shelving.",
+    description:"Our largest wardrobe, built for a main bedroom. Two doors open onto a full-width hanging rail, two shelves, and a base drawer for folded items. Delivered flat-packed and assembled on-site by our team.",
+    materials:["Solid Msasa oak","Termite-resistant sealant","Soft-close hinges"], dimensions:"160 × 60 × 210 cm (W × D × H)", lead:"4–5 weeks, made to order" },
+  { id:"regency-wardrobe", photoId:6585745, name:"Regency", fullName:"Regency Single Wardrobe", category:"wardrobes", price:780, icon:"ic-wardrobe", featured:false,
+    blurb:"Single-door wardrobe for guest rooms and studio flats.",
+    description:"A single-door wardrobe that fits where the Palace won't — guest rooms, studio flats, or a second wardrobe in a walk-in closet.",
+    materials:["Mukwa wood","Termite-resistant sealant","Interior shelf + rail"], dimensions:"90 × 58 × 200 cm (W × D × H)", lead:"3–4 weeks, made to order" },
+  { id:"gallery-shelf", photoId:3747518, name:"Gallery", fullName:"Gallery Display Shelf", category:"shelves", price:360, icon:"ic-shelf", featured:true,
+    blurb:"Open-frame display shelf for books and décor.",
+    description:"An open-frame shelving unit for books, framed photos, and display pieces. Deep enough to hold larger art books flat, tall enough to anchor a living room wall.",
+    materials:["Honey walnut wood","Reinforced shelf brackets"], dimensions:"100 × 34 × 140 cm (W × D × H)", lead:"2 weeks, usually in stock" },
+  { id:"manor-shelf", photoId:2883049, name:"Manor", fullName:"Manor Bookshelf", category:"shelves", price:480, icon:"ic-shelf", featured:false,
+    blurb:"Tall five-tier bookshelf for studies and home offices.",
+    description:"A tall, five-tier bookshelf built for home offices and studies. Deep enough for box files, sturdy enough not to bow under a full load of hardcovers.",
+    materials:["Solid Msasa oak","Adjustable shelf pins"], dimensions:"90 × 32 × 190 cm (W × D × H)", lead:"2–3 weeks, made to order" },
+  { id:"regency-table", photoId:914388, name:"Regency", fullName:"Regency Dining Table", category:"tables", price:920, icon:"ic-table", featured:true,
+    blurb:"Six-seat dining table in solid oak.",
+    description:"A six-seat dining table sized for family dinners and Sunday lunches. The top is a single glued slab of solid oak, sanded and sealed to resist heat marks and daily wear.",
+    materials:["Solid oak tabletop","Powder-coated steel legs","Heat-resistant sealant"], dimensions:"180 × 90 × 76 cm (W × D × H)", lead:"3–4 weeks, made to order" },
+  { id:"coronet-table", photoId:6758242, name:"Coronet", fullName:"Coronet Side Table", category:"tables", price:260, icon:"ic-table", featured:false,
+    blurb:"Round side table with brass-capped legs.",
+    description:"A small round side table for beside the Regent Armchair or Windsor Lounge Chair. Brass-capped legs keep it in step with the rest of the collection's hardware.",
+    materials:["Walnut veneer top","Brass-capped oak legs"], dimensions:"46 cm diameter × 52 cm (H)", lead:"1–2 weeks, usually in stock" }
+];
+
+const CATEGORY_LABELS = { chairs:"Chairs", armchairs:"Armchairs", sofas:"Sofas", dressers:"Dressers", wardrobes:"Wardrobes", shelves:"Shelves", tables:"Tables" };
+
+function fmtPrice(n){ return "$" + n.toLocaleString("en-US"); }
+function findProduct(id){ return PRODUCTS.find(function(p){ return p.id === id; }); }
+function imgUrl(photoId, w){
+  return "https://images.pexels.com/photos/" + photoId + "/pexels-photo-" + photoId + ".jpeg?auto=compress&cs=tinysrgb&w=" + (w || 800);
+}
+
+function productCardHTML(p){
+  return '' +
+    '<article class="product-card" data-cat="'+p.category+'">' +
+      '<div class="product-stage"><img class="media-frame" src="'+imgUrl(p.photoId,600)+'" alt="'+p.fullName+'" loading="lazy"></div>' +
+      '<h4>'+p.name+'</h4>' +
+      '<span class="cat-label">'+CATEGORY_LABELS[p.category]+'</span>' +
+      '<div class="product-foot">' +
+        '<span class="price">'+fmtPrice(p.price)+'</span>' +
+        '<div class="product-links">' +
+          '<a class="mini-link" href="#/product?id='+p.id+'" aria-label="View '+p.fullName+'"><svg><use href="#ic-arrow"/></svg></a>' +
+          '<a class="mini-link solid" href="#/contact?product='+encodeURIComponent(p.fullName)+'" aria-label="Enquire about '+p.fullName+'"><svg><use href="#ic-mail"/></svg></a>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+}
+
+function initHomeTeaser(){
+  var grid = document.getElementById('teaserGrid');
+  if(!grid) return;
+  var featured = PRODUCTS.filter(function(p){ return p.featured; }).slice(0,4);
+  grid.innerHTML = featured.map(productCardHTML).join('');
+}
+
+function initCatalogPage(){
+  var grid = document.getElementById('productGrid');
+  var filterRow = document.getElementById('filterRow');
+  if(!grid || !filterRow) return;
+  function render(filter){
+    var list = filter === 'all' ? PRODUCTS : PRODUCTS.filter(function(p){ return p.category === filter; });
+    grid.innerHTML = list.length ? list.map(productCardHTML).join('')
+      : '<p class="empty-state">No pieces in this category yet — check back soon, or enquire and we\'ll let you know when new stock lands.</p>';
+  }
+  var chips = filterRow.querySelectorAll('.filter-chip');
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      render(chip.dataset.filter);
+    });
+  });
+  render('all');
+}
+
+function renderProduct(id){
+  var root = document.getElementById('productRoot');
+  var relatedWrap = document.getElementById('relatedWrap');
+  if(!root) return;
+  var p = id ? findProduct(id) : null;
+
+  if(!p){
+    root.innerHTML =
+      '<div class="not-found reveal in">' +
+        '<h1>We couldn\'t find that piece</h1>' +
+        '<p>It may have been renamed or retired from the collection. Browse the full catalog to find something similar.</p>' +
+        '<a class="btn btn-dark" href="#/catalog" data-route="catalog">Back to catalog <svg><use href="#ic-arrow"/></svg></a>' +
+      '</div>';
+    if(relatedWrap) relatedWrap.innerHTML = '';
+    document.title = "Piece not found — Opulent Furniture";
+    return;
+  }
+
+  document.title = p.fullName + " — Opulent Furniture";
+  var materialsHTML = p.materials.map(function(m){ return '<li>'+m+'</li>'; }).join('');
+
+  root.innerHTML =
+    '<div class="breadcrumb reveal in">' +
+      '<a href="#/" data-route="">Home</a><span class="sep">/</span>' +
+      '<a href="#/catalog" data-route="catalog">Catalog</a><span class="sep">/</span>' +
+      '<span>'+p.fullName+'</span>' +
+    '</div>' +
+    '<div class="product-detail">' +
+      '<div class="product-detail-stage reveal in"><img class="media-frame" src="'+imgUrl(p.photoId,900)+'" alt="'+p.fullName+'" loading="lazy"></div>' +
+      '<div class="product-info reveal in">' +
+        '<span class="cat-label">'+CATEGORY_LABELS[p.category]+'</span>' +
+        '<h1>'+p.fullName+'</h1>' +
+        '<span class="price">'+fmtPrice(p.price)+'</span>' +
+        '<p class="desc">'+p.description+'</p>' +
+        '<div class="meta-grid">' +
+          '<div><div class="m-label">Dimensions</div><div class="m-value">'+p.dimensions+'</div></div>' +
+          '<div><div class="m-label">Lead time</div><div class="m-value">'+p.lead+'</div></div>' +
+          '<div style="grid-column:1/-1"><div class="m-label">Materials</div><ul class="m-value" style="list-style:disc;padding-left:18px;font-weight:600;display:flex;flex-direction:column;gap:4px;">'+materialsHTML+'</ul></div>' +
+        '</div>' +
+        '<div class="product-cta">' +
+          '<a class="btn btn-dark" href="#/contact?product='+encodeURIComponent(p.fullName)+'">Enquire about this piece <svg><use href="#ic-mail"/></svg></a>' +
+          '<a class="btn btn-ghost" href="#/catalog" data-route="catalog">Back to catalog</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  var related = PRODUCTS.filter(function(o){ return o.category === p.category && o.id !== p.id; }).slice(0,3);
+  if(relatedWrap){
+    relatedWrap.innerHTML = related.length ?
+      ('<div class="related-head reveal in"><h3>You might also like</h3></div>' +
+      '<div class="product-grid reveal in">' + related.map(productCardHTML).join('') + '</div>')
+      : '';
+  }
+}
+
+function initContactOnce(){
+  var select = document.getElementById('productInterest');
+  if(!select || select.dataset.filled) return;
+  PRODUCTS.forEach(function(p){
+    var opt = document.createElement('option');
+    opt.value = p.fullName;
+    opt.textContent = p.fullName + " — " + fmtPrice(p.price);
+    select.appendChild(opt);
+  });
+  select.dataset.filled = '1';
+
+  var form = document.getElementById('enquiryForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.classList.add('hide-form');
+    document.getElementById('successPanel').classList.add('show');
+  });
+}
+
+function setupContact(productParam){
+  var form = document.getElementById('enquiryForm');
+  var panel = document.getElementById('successPanel');
+  if(!form || !panel) return;
+  form.classList.remove('hide-form');
+  panel.classList.remove('show');
+
+  var select = document.getElementById('productInterest');
+  var message = document.getElementById('message');
+  if(productParam){
+    var match = Array.from(select.options).find(function(o){ return o.value === productParam; });
+    if(match){
+      select.value = productParam;
+      message.value = "Hi, I'm interested in the " + productParam + ". Could you share more details on availability and delivery?";
+    }
+  } else {
+    select.value = 'General enquiry';
+    message.value = '';
+  }
+}
+
+function initMaterialTabs(){
+  var tabs = document.querySelectorAll('.mat-tab');
+  var swatches = document.querySelectorAll('.swatch');
+  if(!tabs.length) return;
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){t.classList.remove('active');t.setAttribute('aria-selected','false');});
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
+      var group = tab.dataset.tab;
+      swatches.forEach(function(s){ s.classList.toggle('show', s.dataset.group === group); });
+    });
+  });
+}
+
+function initMobileNav(){
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  if(!menuToggle || !mobileNav) return;
+  menuToggle.addEventListener('click', function(){
+    var open = mobileNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuToggle.innerHTML = open ? '<svg><use href="#ic-close"/></svg>' : '<svg><use href="#ic-menu"/></svg>';
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded','false');
+      menuToggle.innerHTML = '<svg><use href="#ic-menu"/></svg>';
+    });
+  });
+}
+
+function initReveal(){
+  var reveals = document.querySelectorAll('.reveal');
+  if(!reveals.length) return;
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    reveals.forEach(function(r){ io.observe(r); });
+  } else {
+    reveals.forEach(function(r){ r.classList.add('in'); });
+  }
+}
+
+/* ---------- ROUTER ---------- */
+var HOME_ANCHORS = ['about','materials','new','gallery'];
+
+function getRoute(){
+  var raw = location.hash.slice(1); // drop leading '#'
+  if(raw.charAt(0) === '/') raw = raw.slice(1);
+  var parts = raw.split('?');
+  return { path: parts[0] || '', params: new URLSearchParams(parts[1] || '') };
+}
+
+function updateActiveNav(path){
+  document.querySelectorAll('.main-nav a, .mobile-nav a').forEach(function(a){
+    var r = a.dataset.route;
+    if(r === undefined) return;
+    a.classList.toggle('active', r === path);
+  });
+}
+
+function router(){
+  var route = getRoute();
+  var path = route.path, params = route.params;
+  var view = 'home';
+  if(path === 'catalog') view = 'catalog';
+  else if(path === 'product') view = 'product';
+  else if(path === 'contact') view = 'contact';
+
+  document.querySelectorAll('.view').forEach(function(v){
+    v.classList.toggle('active', v.dataset.view === view);
+  });
+
+  updateActiveNav(path);
+
+  if(view === 'product'){ renderProduct(params.get('id')); }
+  if(view === 'contact'){ setupContact(params.get('product')); }
+
+  if(view === 'home' && HOME_ANCHORS.indexOf(path) !== -1){
+    var el = document.getElementById(path);
+    if(el){ setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 30); }
+  } else {
+    window.scrollTo(0,0);
+  }
+}
+
+window.addEventListener('hashchange', router);
+document.addEventListener('DOMContentLoaded', function(){
+  initMobileNav();
+  initMaterialTabs();
+  initHomeTeaser();
+  initCatalogPage();
+  initContactOnce();
+  initReveal();
+  router();
+});
+</script>
+
+</body>
+</html>
