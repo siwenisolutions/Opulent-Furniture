@@ -237,6 +237,8 @@
   .edit-toolbar .et-toggle.active{background:var(--gold);color:var(--purple-deep);}
   .edit-toolbar .et-action{background:rgba(255,255,255,.12);color:var(--cream);}
   .edit-toolbar .et-action:hover{background:rgba(255,255,255,.22);}
+  .edit-toolbar .et-publish{background:var(--gold);color:var(--purple-deep);}
+  .edit-toolbar .et-publish:hover{background:var(--gold-light);}
   .edit-toolbar .et-logout{background:transparent;border:1.5px solid rgba(255,255,255,.35);color:var(--cream);}
   .edit-toolbar .et-status{font-size:11.5px;color:var(--gold-light);opacity:0;transition:opacity .3s;white-space:nowrap;}
   .edit-toolbar .et-status.show{opacity:1;}
@@ -258,6 +260,10 @@
   .pm-del-btn{background:#FBEAEA;color:#A32C2C;}
   .pm-form{border-top:1px solid var(--line);padding-top:22px;margin-top:6px;display:none;}
   .pm-form.show{display:block;}
+  .pm-image-row{display:flex;align-items:center;gap:14px;}
+  .pm-image-preview{width:64px;height:64px;object-fit:cover;border-radius:12px;background:var(--cream-deep);flex-shrink:0;border:1px solid var(--line);}
+  .pm-image-controls{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0;}
+  .pm-image-controls input[type="file"]{padding:8px 10px;font-size:13px;}
   .pm-form-title{font-size:16px;color:var(--purple-deep);margin-bottom:16px;font-weight:700;}
   .pm-form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
 
@@ -850,7 +856,7 @@
     <button class="admin-close" type="button" id="adminLoginClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
     <p class="eyebrow">site editor</p>
     <h2>Admin Login</h2>
-    <p class="admin-sub">Sign in to edit page text, prices, and products directly on the live page.</p>
+    <p class="admin-sub">Sign in to edit page text, prices, and products directly on the live page, then publish changes for everyone.</p>
     <div class="admin-error" id="adminLoginError">Incorrect username or password.</div>
     <form id="adminLoginForm">
       <div class="admin-field"><label for="adminUser">Username</label><input type="text" id="adminUser" name="adminUser" autocomplete="username" required></div>
@@ -864,14 +870,30 @@
   <span class="et-label">Edit Mode</span>
   <button class="et-toggle" type="button" id="btnToggleTextEdit">Edit Text</button>
   <button class="et-action" type="button" id="btnManageProducts">Manage Products</button>
-  <button class="et-action" type="button" id="btnDownloadSite">Download Updated Site</button>
+  <button class="et-action et-publish" type="button" id="btnPublish">Publish Live</button>
+  <button class="et-action" type="button" id="btnDownloadSite">Download Backup</button>
   <span class="et-status" id="etStatus">Saved</span>
   <button class="et-logout" type="button" id="btnLogout">Log Out</button>
+</div>
+
+<div class="admin-overlay admin-only" id="ghTokenOverlay">
+  <div class="admin-modal">
+    <button class="admin-close" type="button" id="ghTokenClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
+    <p class="eyebrow">site editor</p>
+    <h2>Connect GitHub</h2>
+    <p class="admin-sub">Paste a fine-grained GitHub token scoped to just this repo (Contents: Read and write). It's stored only in this browser and is never written into the site file.</p>
+    <div class="admin-error" id="ghTokenError">Please paste a token first.</div>
+    <form id="ghTokenForm">
+      <div class="admin-field"><label for="ghTokenInput">GitHub Token</label><input type="password" id="ghTokenInput" autocomplete="off" placeholder="github_pat_..."></div>
+      <button class="btn btn-dark" type="submit" style="width:100%;justify-content:center;">Save &amp; Publish</button>
+    </form>
+  </div>
 </div>
 
 <div class="admin-overlay admin-only" id="productManagerOverlay">
   <div class="admin-modal admin-modal-wide">
     <button class="admin-close" type="button" id="pmClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
+
     <p class="eyebrow">site editor</p>
     <h2>Manage Products</h2>
     <p class="admin-sub">Edit, add, or remove pieces. Changes save to this browser instantly, and go live everywhere once you download and re-upload the site file.</p>
@@ -888,7 +910,16 @@
         <div class="admin-field"><label for="pmCategory">Category</label><select id="pmCategory"></select></div>
         <div class="admin-field"><label for="pmPrice">Price (USD)</label><input type="number" id="pmPrice" min="0" step="1"></div>
       </div>
-      <div class="admin-field"><label for="pmImage">Image URL</label><input type="text" id="pmImage" placeholder="https://..."></div>
+      <div class="admin-field">
+        <label for="pmImage">Image</label>
+        <div class="pm-image-row">
+          <img id="pmImagePreview" class="pm-image-preview" alt="" src="">
+          <div class="pm-image-controls">
+            <input type="file" id="pmImageFile" accept="image/*">
+            <input type="text" id="pmImage" placeholder="or paste an image URL">
+          </div>
+        </div>
+      </div>
       <div class="admin-field"><label for="pmBlurb">Short blurb (shown on cards)</label><input type="text" id="pmBlurb"></div>
       <div class="admin-field"><label for="pmDescription">Full description</label><textarea id="pmDescription"></textarea></div>
       <div class="admin-field-row">
@@ -991,17 +1022,6 @@ let PRODUCTS = [
 ];
 
 const CATEGORY_LABELS = { kitchens:"Fitted Kitchens", "tv-stands":"TV Stands", "wood-items":"Wood Items", outdoor:"Outdoor", chairs:"Chairs", couches:"Couches", wardrobes:"Wardrobes", beds:"Beds", headboards:"Headboards", pedestals:"Pedestals" };
-
-/* Load any product edits saved by the site editor (this browser only) before first render */
-(function(){
-  try{
-    var saved = localStorage.getItem('opulent_edits_products');
-    if(saved){
-      var parsed = JSON.parse(saved);
-      if(Array.isArray(parsed) && parsed.length){ PRODUCTS = parsed; }
-    }
-  }catch(e){ console.warn('Site editor: could not load saved product edits', e); }
-})();
 
 function fmtPrice(n){ return "$" + Number(n).toLocaleString("en-US"); }
 function findProduct(id){ return PRODUCTS.find(function(p){ return p.id === id; }); }
@@ -1256,7 +1276,10 @@ function router(){
 }
 
 window.addEventListener('hashchange', router);
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', async function(){
+  if(typeof window.loadSiteContent === 'function'){
+    await window.loadSiteContent(); // pulls published edits (and this browser's drafts) before first paint of dynamic data
+  }
   initMobileNav();
   initMaterialTabs();
   initHomeTeaser();
@@ -1271,31 +1294,57 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 /* ============================================================
    SITE EDITOR (admin) — tap the logo 5x to log in, then edit
-   page text and products directly on the live page.
+   page text and products directly on the live page, and publish
+   changes so every visitor sees them.
 
-   IMPORTANT — read this before relying on it:
-   - Change ADMIN_USER / ADMIN_PASS below before publishing.
-   - This is a client-side-only gate for a static HTML file with
-     no server. Anyone who views the page source can find the
-     credentials, so it stops casual visitors, not a determined
-     attacker. For real security, put this behind proper backend
-     authentication.
-   - Edits save to *this browser's* local storage only — they are
-     not visible to other visitors automatically. Use "Download
-     Updated Site" after editing and re-upload that file to your
-     host to publish the changes for everyone.
+   SETUP — do this before it will work:
+   1) Fill in GITHUB_OWNER / GITHUB_REPO / GITHUB_BRANCH below
+      with your GitHub Pages repo details.
+   2) Create a fine-grained Personal Access Token at
+      https://github.com/settings/personal-access-tokens/new
+      scoped to ONLY this repository, with "Contents" permission
+      set to Read and write. Give it an expiry and store it
+      somewhere safe — you'll paste it into the editor once.
+   3) This only works once the site is actually live on GitHub
+      Pages (fetch/CORS won't work opening the file locally).
+   4) Change ADMIN_USER / ADMIN_PASS below too.
+
+   HOW PUBLISHING WORKS:
+   - Edits you make apply instantly in your own browser and are
+     cached to local storage as your personal draft.
+   - Clicking "Publish Live" commits a small JSON file
+     (data/site-content.json) into your GitHub repo via the
+     GitHub API, using a token you provide (kept only in your
+     browser's local storage — never written into the page).
+     GitHub Pages then rebuilds automatically (usually under two
+     minutes) and every visitor's page pulls that file on load.
+   - Until you publish, only you (this browser) see your edits.
+
+   SECURITY NOTE:
+   - The username/password gate is a light client-side deterrent,
+     not real security — anyone viewing page source can find it.
+   - Your GitHub token grants write access to this repo if it
+     leaks, so scope it to this repo only, keep its permissions
+     minimal, and give it an expiry date.
    ============================================================ */
 (function(){
   var ADMIN_USER = "admin";
   var ADMIN_PASS = "opulent2026"; // change this before publishing
 
+  var GITHUB_OWNER  = "YOUR-GITHUB-USERNAME";  // e.g. "radley-siweni"
+  var GITHUB_REPO   = "YOUR-REPO-NAME";        // e.g. "opulent-furniture-site"
+  var GITHUB_BRANCH = "main";                  // the branch GitHub Pages deploys from
+  var DATA_PATH     = "data/site-content.json"; // where published edits are stored in the repo
+
   var SESSION_KEY = 'opulent_admin_logged_in';
   var TEXT_EDITS_KEY = 'opulent_edits_text';
   var PRODUCT_EDITS_KEY = 'opulent_edits_products';
+  var GH_TOKEN_KEY = 'opulent_gh_token';
 
   var tapCount = 0, tapTimer = null;
   var textEditMode = false;
   var editingProductId = null; // null while adding a new product
+  var isGithubConfigured = GITHUB_OWNER.indexOf('YOUR-') !== 0 && GITHUB_REPO.indexOf('YOUR-') !== 0;
 
   var EDITABLE_SELECTOR = [
     '.hero-copy h1', '.hero-sub',
@@ -1316,7 +1365,7 @@ document.addEventListener('DOMContentLoaded', function(){
     el.textContent = msg;
     el.classList.add('show');
     clearTimeout(el._t);
-    el._t = setTimeout(function(){ el.classList.remove('show'); }, 1800);
+    el._t = setTimeout(function(){ el.classList.remove('show'); }, 2400);
   }
 
   /* ---------- tag editable text elements with stable ids ---------- */
@@ -1328,12 +1377,10 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  function applySavedTextEdits(){
-    var saved;
-    try{ saved = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}'); }catch(e){ saved = {}; }
-    Object.keys(saved).forEach(function(id){
+  function applyTextEdits(map){
+    Object.keys(map || {}).forEach(function(id){
       var el = document.querySelector('[data-edit-id="'+id+'"]');
-      if(el){ el.innerHTML = saved[id]; }
+      if(el){ el.innerHTML = map[id]; }
     });
   }
 
@@ -1342,8 +1389,33 @@ document.addEventListener('DOMContentLoaded', function(){
     try{ saved = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}'); }catch(e){ saved = {}; }
     saved[el.dataset.editId] = el.innerHTML;
     localStorage.setItem(TEXT_EDITS_KEY, JSON.stringify(saved));
-    showStatus('Saved');
+    showStatus('Saved to your draft (click Publish Live to go live for everyone)');
   }
+
+  /* ---------- load published content (remote) + this browser's draft (local) ---------- */
+  window.loadSiteContent = async function(){
+    tagEditableElements();
+
+    // 1) published baseline, from the repo — this is what every visitor sees
+    try{
+      var res = await fetch(DATA_PATH, { cache: 'no-store' });
+      if(res.ok){
+        var remote = await res.json();
+        if(remote && Array.isArray(remote.products) && remote.products.length){ PRODUCTS = remote.products; }
+        if(remote && remote.textEdits){ applyTextEdits(remote.textEdits); }
+      }
+    }catch(e){ /* no published file yet, or not hosted on GitHub Pages — fall back to page defaults */ }
+
+    // 2) this browser's unpublished draft, layered on top (only visible to you until you publish)
+    try{
+      var localProducts = JSON.parse(localStorage.getItem(PRODUCT_EDITS_KEY) || 'null');
+      if(Array.isArray(localProducts) && localProducts.length){ PRODUCTS = localProducts; }
+    }catch(e){}
+    try{
+      var localText = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}');
+      applyTextEdits(localText);
+    }catch(e){}
+  };
 
   /* ---------- login gate: tap/click logo 5x ---------- */
   function initTapGate(){
@@ -1483,6 +1555,12 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  function updateImagePreview(src){
+    var preview = $('pmImagePreview');
+    if(src){ preview.src = src; preview.style.display = ''; }
+    else { preview.style.display = 'none'; }
+  }
+
   function openProductForm(p){
     editingProductId = p ? p.id : null;
     $('pmForm').classList.add('show');
@@ -1493,7 +1571,9 @@ document.addEventListener('DOMContentLoaded', function(){
     $('pmFullName').value = p ? p.fullName : '';
     $('pmCategory').value = p ? p.category : Object.keys(CATEGORY_LABELS)[0];
     $('pmPrice').value = p ? p.price : '';
+    $('pmImageFile').value = '';
     $('pmImage').value = p ? productImage(p, 900) : '';
+    updateImagePreview(p ? productImage(p, 200) : '');
     $('pmBlurb').value = p ? p.blurb : '';
     $('pmDescription').value = p ? p.description : '';
     $('pmDimensions').value = p ? p.dimensions : 'Contact us for exact dimensions';
@@ -1514,7 +1594,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var price = parseFloat($('pmPrice').value);
     var image = $('pmImage').value.trim();
     if(!name || isNaN(price) || !image){
-      $('pmError').textContent = 'Please fill in card name, price, and image URL.';
+      $('pmError').textContent = 'Please fill in card name, price, and an image (upload or URL).';
       $('pmError').classList.add('show');
       return;
     }
@@ -1559,9 +1639,23 @@ document.addEventListener('DOMContentLoaded', function(){
     $('pmAddNew').addEventListener('click', function(){ openProductForm(null); });
     $('pmCancel').addEventListener('click', closeProductForm);
     $('pmSave').addEventListener('click', saveProductForm);
+    $('pmImage').addEventListener('input', function(){ updateImagePreview(this.value.trim()); });
+    $('pmImageFile').addEventListener('change', function(e){
+      var file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(file.size > 1.5 * 1024 * 1024){
+        alert('That image is over 1.5MB. Large images bloat the site file and slow the page down — consider resizing it first (e.g. squoosh.app) for best results.');
+      }
+      var reader = new FileReader();
+      reader.onload = function(){
+        $('pmImage').value = reader.result;
+        updateImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
-  /* ---------- download updated site file ---------- */
+  /* ---------- download updated site file (manual backup / fallback) ---------- */
   function downloadSite(){
     var clone = document.documentElement.cloneNode(true);
     clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
@@ -1586,20 +1680,100 @@ document.addEventListener('DOMContentLoaded', function(){
     showStatus('Downloaded');
   }
 
+  /* ---------- publish to GitHub (makes changes live for every visitor) ---------- */
+  function b64EncodeUnicode(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  function buildContentSnapshot(){
+    var textEdits = {};
+    document.querySelectorAll('[data-editable="true"]').forEach(function(el){
+      textEdits[el.dataset.editId] = el.innerHTML;
+    });
+    return { textEdits: textEdits, products: PRODUCTS, updatedAt: new Date().toISOString() };
+  }
+
+  async function ghApi(method, body){
+    var token = localStorage.getItem(GH_TOKEN_KEY);
+    var url = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + DATA_PATH;
+    var headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' };
+    if(method === 'GET'){
+      var getRes = await fetch(url + '?ref=' + GITHUB_BRANCH, { headers: headers });
+      if(getRes.status === 404) return null;
+      if(!getRes.ok) throw new Error('GitHub read failed (' + getRes.status + ')');
+      return getRes.json();
+    }
+    headers['Content-Type'] = 'application/json';
+    var putRes = await fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
+    if(!putRes.ok){
+      var errBody = await putRes.json().catch(function(){ return {}; });
+      throw new Error(errBody.message || ('GitHub write failed (' + putRes.status + ')'));
+    }
+    return putRes.json();
+  }
+
+  async function publishToGitHub(){
+    if(!isGithubConfigured){
+      alert('Site editor isn\'t connected to GitHub yet. Open this HTML file and fill in GITHUB_OWNER / GITHUB_REPO near the top of the SITE EDITOR script, then re-download and re-upload the file.');
+      return;
+    }
+    var token = localStorage.getItem(GH_TOKEN_KEY);
+    if(!token){ openTokenModal(); return; }
+
+    showStatus('Publishing…');
+    try{
+      var existing = await ghApi('GET');
+      var snapshot = buildContentSnapshot();
+      var body = {
+        message: 'Update site content via site editor',
+        content: b64EncodeUnicode(JSON.stringify(snapshot, null, 2)),
+        branch: GITHUB_BRANCH
+      };
+      if(existing && existing.sha){ body.sha = existing.sha; }
+      await ghApi('PUT', body);
+      showStatus('Published! Live for everyone in a minute or two');
+    }catch(err){
+      console.error(err);
+      alert('Publish failed: ' + err.message + '\n\nCheck: your GitHub token hasn\'t expired and has Contents: Read & write access to this repo, and GITHUB_OWNER / GITHUB_REPO / GITHUB_BRANCH are correct.');
+    }
+  }
+
+  function openTokenModal(){
+    $('ghTokenError').classList.remove('show');
+    $('ghTokenInput').value = localStorage.getItem(GH_TOKEN_KEY) || '';
+    $('ghTokenOverlay').classList.add('show');
+    setTimeout(function(){ $('ghTokenInput').focus(); }, 50);
+  }
+  function closeTokenModal(){ $('ghTokenOverlay').classList.remove('show'); }
+
+  function initTokenModal(){
+    $('ghTokenClose').addEventListener('click', closeTokenModal);
+    $('ghTokenOverlay').addEventListener('click', function(e){ if(e.target === this) closeTokenModal(); });
+    $('ghTokenForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var token = $('ghTokenInput').value.trim();
+      if(!token){ $('ghTokenError').classList.add('show'); return; }
+      localStorage.setItem(GH_TOKEN_KEY, token);
+      closeTokenModal();
+      publishToGitHub();
+    });
+  }
+
   /* ---------- init ---------- */
   window.initSiteEditor = function(){
-    tagEditableElements();
-    applySavedTextEdits();
     initTapGate();
     initLoginForm();
     initTextEditing();
     initProductManager();
+    initTokenModal();
     $('btnDownloadSite').addEventListener('click', downloadSite);
+    $('btnPublish').addEventListener('click', publishToGitHub);
     $('btnLogout').addEventListener('click', logOut);
     if(isLoggedIn()){ enterEditMode(); }
   };
 })();
 </script>
+
 
 </body>
 </html>
