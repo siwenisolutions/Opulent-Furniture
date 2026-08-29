@@ -1528,8 +1528,13 @@ document.addEventListener('DOMContentLoaded', async function(){
 
   function renderProductList(){
     var list = $('pmList');
+    var form = $('pmForm');
+    // the form may currently be parked inside a row from a previous edit —
+    // move it back out before we wipe the list's contents, or it'd be destroyed
+    list.insertAdjacentElement('afterend', form);
+
     list.innerHTML = PRODUCTS.map(function(p){
-      return '<div class="pm-row">' +
+      return '<div class="pm-row" data-row="'+p.id+'">' +
         '<img src="'+productImage(p,100)+'" alt="">' +
         '<div class="pm-row-info"><strong>'+p.fullName+'</strong><span>'+CATEGORY_LABELS[p.category]+' · '+fmtPrice(p.price)+'</span></div>' +
         '<div class="pm-row-actions">' +
@@ -1563,7 +1568,19 @@ document.addEventListener('DOMContentLoaded', async function(){
 
   function openProductForm(p){
     editingProductId = p ? p.id : null;
-    $('pmForm').classList.add('show');
+    var form = $('pmForm');
+
+    // move the form to sit right under the row being edited (or right after
+    // the "Add new" button when creating one) so you never have to scroll
+    // past the whole list to reach it
+    if(p){
+      var row = document.querySelector('.pm-row[data-row="'+p.id+'"]');
+      if(row) row.insertAdjacentElement('afterend', form);
+    } else {
+      $('pmAddNew').insertAdjacentElement('afterend', form);
+    }
+
+    form.classList.add('show');
     $('pmError').classList.remove('show');
     $('pmFormTitle').textContent = p ? 'Edit product' : 'Add new product';
     $('pmId').value = p ? p.id : '';
@@ -1580,7 +1597,7 @@ document.addEventListener('DOMContentLoaded', async function(){
     $('pmLead').value = p ? p.lead : 'Contact us for lead time';
     $('pmMaterials').value = p && p.materials ? p.materials.join(', ') : '';
     $('pmFeatured').checked = p ? !!p.featured : false;
-    $('pmForm').scrollIntoView({behavior:'smooth', block:'nearest'});
+    setTimeout(function(){ form.scrollIntoView({behavior:'smooth', block:'center'}); }, 20);
   }
 
   function closeProductForm(){
