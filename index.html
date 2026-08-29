@@ -208,6 +208,59 @@
   .hotspot .bubble span{font-size:11.5px;opacity:.6;}
   .room-hint{text-align:center;font-size:13px;opacity:.6;margin-top:30px;}
 
+  /* ---------- SITE EDITOR (admin) ---------- */
+  .admin-overlay{display:none;position:fixed;inset:0;background:rgba(34,19,41,.62);backdrop-filter:blur(3px);z-index:10000;align-items:center;justify-content:center;padding:20px;}
+  .admin-overlay.show{display:flex;}
+  .admin-modal{background:var(--white);border-radius:20px;padding:36px;max-width:420px;width:100%;box-shadow:var(--shadow);position:relative;max-height:88vh;overflow:auto;}
+  .admin-modal.admin-modal-wide{max-width:760px;}
+  .admin-modal h2{font-size:26px;color:var(--purple-deep);margin-bottom:6px;}
+  .admin-modal .admin-sub{font-size:13.5px;opacity:.65;margin-bottom:24px;}
+  .admin-close{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;}
+  .admin-close svg{width:14px;height:14px;color:var(--purple-deep);}
+  .admin-field{margin-bottom:16px;}
+  .admin-field label{display:block;font-size:12.5px;font-weight:700;color:var(--purple-deep);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;}
+  .admin-field input,.admin-field select,.admin-field textarea{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);font-family:inherit;font-size:14.5px;background:var(--cream);color:var(--ink);}
+  .admin-field textarea{min-height:80px;resize:vertical;}
+  .admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--gold);}
+  .admin-field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .admin-error{background:#FBEAEA;color:#A32C2C;font-size:13px;padding:10px 14px;border-radius:10px;margin-bottom:16px;display:none;}
+  .admin-error.show{display:block;}
+  .admin-check{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--purple-deep);}
+  .admin-check input{width:auto;}
+
+  /* toolbar */
+  .edit-toolbar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9998;background:var(--purple-deep);color:var(--cream);border-radius:100px;padding:10px 10px 10px 20px;box-shadow:0 20px 40px -14px rgba(46,15,73,.55);align-items:center;gap:10px;flex-wrap:wrap;max-width:calc(100vw - 32px);}
+  .edit-toolbar.show{display:flex;}
+  .edit-toolbar .et-label{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-light);white-space:nowrap;}
+  .edit-toolbar button{padding:9px 16px;border-radius:100px;font-size:13px;font-weight:700;white-space:nowrap;transition:transform .2s, background .2s;}
+  .edit-toolbar .et-toggle{background:rgba(255,255,255,.12);color:var(--cream);}
+  .edit-toolbar .et-toggle.active{background:var(--gold);color:var(--purple-deep);}
+  .edit-toolbar .et-action{background:rgba(255,255,255,.12);color:var(--cream);}
+  .edit-toolbar .et-action:hover{background:rgba(255,255,255,.22);}
+  .edit-toolbar .et-logout{background:transparent;border:1.5px solid rgba(255,255,255,.35);color:var(--cream);}
+  .edit-toolbar .et-status{font-size:11.5px;color:var(--gold-light);opacity:0;transition:opacity .3s;white-space:nowrap;}
+  .edit-toolbar .et-status.show{opacity:1;}
+
+  [data-editable="true"][contenteditable="true"]{outline:2px dashed var(--gold);outline-offset:4px;border-radius:6px;background:rgba(224,193,105,.08);cursor:text;}
+  [data-editable="true"][contenteditable="true"]:focus{outline-color:var(--purple);}
+
+  /* product manager */
+  .pm-add-row{display:flex;justify-content:flex-end;margin-bottom:16px;}
+  .pm-list{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+  .pm-row{display:flex;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;}
+  .pm-row img{width:48px;height:48px;object-fit:cover;border-radius:10px;flex-shrink:0;background:var(--cream-deep);}
+  .pm-row-info{flex:1;min-width:0;}
+  .pm-row-info strong{display:block;font-size:14.5px;color:var(--purple-deep);}
+  .pm-row-info span{font-size:12.5px;opacity:.65;}
+  .pm-row-actions{display:flex;gap:8px;flex-shrink:0;}
+  .pm-row-actions button{padding:8px 14px;border-radius:100px;font-size:12.5px;font-weight:700;}
+  .pm-edit-btn{background:var(--purple-soft);color:var(--purple-deep);}
+  .pm-del-btn{background:#FBEAEA;color:#A32C2C;}
+  .pm-form{border-top:1px solid var(--line);padding-top:22px;margin-top:6px;display:none;}
+  .pm-form.show{display:block;}
+  .pm-form-title{font-size:16px;color:var(--purple-deep);margin-bottom:16px;font-weight:700;}
+  .pm-form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+
   /* ---------- CONTACT PAGE ---------- */
   .contact-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start;}
   .contact-info-card{background:var(--purple-deep);color:var(--cream);border-radius:28px;padding:40px 34px;}
@@ -428,7 +481,7 @@
 <!-- ============ HEADER ============ -->
 <header class="site-header">
   <div class="header-inner">
-    <a class="logo" href="#/" data-route="" aria-label="Opulent Furniture home">
+    <a class="logo" href="#/" data-route="" id="siteLogo" aria-label="Opulent Furniture home">
       <img src="logo.png" alt="Opulent Furniture Pvt Ltd">
     </a>
     <nav class="main-nav" aria-label="Primary">
@@ -787,12 +840,78 @@
   </div>
 </footer>
 
+<!-- ============================================================ -->
+<!-- ===================== SITE EDITOR (admin) ===================== -->
+<!-- Tap/click the logo 5 times to reveal the login prompt.        -->
+<!-- ============================================================ -->
+
+<div class="admin-overlay admin-only" id="adminLoginOverlay">
+  <div class="admin-modal">
+    <button class="admin-close" type="button" id="adminLoginClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
+    <p class="eyebrow">site editor</p>
+    <h2>Admin Login</h2>
+    <p class="admin-sub">Sign in to edit page text, prices, and products directly on the live page.</p>
+    <div class="admin-error" id="adminLoginError">Incorrect username or password.</div>
+    <form id="adminLoginForm">
+      <div class="admin-field"><label for="adminUser">Username</label><input type="text" id="adminUser" name="adminUser" autocomplete="username" required></div>
+      <div class="admin-field"><label for="adminPass">Password</label><input type="password" id="adminPass" name="adminPass" autocomplete="current-password" required></div>
+      <button class="btn btn-dark" type="submit" style="width:100%;justify-content:center;">Log in</button>
+    </form>
+  </div>
+</div>
+
+<div class="edit-toolbar admin-only" id="editToolbar">
+  <span class="et-label">Edit Mode</span>
+  <button class="et-toggle" type="button" id="btnToggleTextEdit">Edit Text</button>
+  <button class="et-action" type="button" id="btnManageProducts">Manage Products</button>
+  <button class="et-action" type="button" id="btnDownloadSite">Download Updated Site</button>
+  <span class="et-status" id="etStatus">Saved</span>
+  <button class="et-logout" type="button" id="btnLogout">Log Out</button>
+</div>
+
+<div class="admin-overlay admin-only" id="productManagerOverlay">
+  <div class="admin-modal admin-modal-wide">
+    <button class="admin-close" type="button" id="pmClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
+    <p class="eyebrow">site editor</p>
+    <h2>Manage Products</h2>
+    <p class="admin-sub">Edit, add, or remove pieces. Changes save to this browser instantly, and go live everywhere once you download and re-upload the site file.</p>
+    <div class="pm-add-row"><button class="btn btn-gold btn-sm" type="button" id="pmAddNew">+ Add new product</button></div>
+    <div class="pm-list" id="pmList"></div>
+    <div class="pm-form" id="pmForm">
+      <div class="pm-form-title" id="pmFormTitle">Edit product</div>
+      <input type="hidden" id="pmId">
+      <div class="admin-field-row">
+        <div class="admin-field"><label for="pmName">Card name</label><input type="text" id="pmName"></div>
+        <div class="admin-field"><label for="pmFullName">Full name</label><input type="text" id="pmFullName"></div>
+      </div>
+      <div class="admin-field-row">
+        <div class="admin-field"><label for="pmCategory">Category</label><select id="pmCategory"></select></div>
+        <div class="admin-field"><label for="pmPrice">Price (USD)</label><input type="number" id="pmPrice" min="0" step="1"></div>
+      </div>
+      <div class="admin-field"><label for="pmImage">Image URL</label><input type="text" id="pmImage" placeholder="https://..."></div>
+      <div class="admin-field"><label for="pmBlurb">Short blurb (shown on cards)</label><input type="text" id="pmBlurb"></div>
+      <div class="admin-field"><label for="pmDescription">Full description</label><textarea id="pmDescription"></textarea></div>
+      <div class="admin-field-row">
+        <div class="admin-field"><label for="pmDimensions">Dimensions</label><input type="text" id="pmDimensions"></div>
+        <div class="admin-field"><label for="pmLead">Lead time</label><input type="text" id="pmLead"></div>
+      </div>
+      <div class="admin-field"><label for="pmMaterials">Materials (comma separated)</label><input type="text" id="pmMaterials"></div>
+      <div class="admin-field"><label class="admin-check"><input type="checkbox" id="pmFeatured"> Show in "New &amp; Featured" on the home page</label></div>
+      <div class="admin-error" id="pmError">Please fill in the required fields.</div>
+      <div class="pm-form-actions">
+        <button class="btn btn-ghost btn-sm" type="button" id="pmCancel">Cancel</button>
+        <button class="btn btn-dark btn-sm" type="button" id="pmSave">Save product</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    OPULENT FURNITURE — product data + single-page router
    Edit PRODUCTS below to add, remove, or reprice pieces.
    ============================================================ */
-const PRODUCTS = [
+let PRODUCTS = [
   { id:"fitted-kitchen-cupboards", photoId:2079233, name:"Fitted Kitchen Cupboards", fullName:"Fitted Kitchen Cupboards", category:"kitchens", price:800, originalPrice:1000, icon:"ic-kitchen", featured:true, signature:true,
     blurb:"Fitted cupboards from $800, made to your kitchen's exact dimensions.",
     description:"Fitted kitchen cupboards built and installed to fit your kitchen exactly, starting from $800. Choose your board finish and layout — we'll come out to measure and quote before any work begins.",
@@ -873,16 +992,30 @@ const PRODUCTS = [
 
 const CATEGORY_LABELS = { kitchens:"Fitted Kitchens", "tv-stands":"TV Stands", "wood-items":"Wood Items", outdoor:"Outdoor", chairs:"Chairs", couches:"Couches", wardrobes:"Wardrobes", beds:"Beds", headboards:"Headboards", pedestals:"Pedestals" };
 
-function fmtPrice(n){ return "$" + n.toLocaleString("en-US"); }
+/* Load any product edits saved by the site editor (this browser only) before first render */
+(function(){
+  try{
+    var saved = localStorage.getItem('opulent_edits_products');
+    if(saved){
+      var parsed = JSON.parse(saved);
+      if(Array.isArray(parsed) && parsed.length){ PRODUCTS = parsed; }
+    }
+  }catch(e){ console.warn('Site editor: could not load saved product edits', e); }
+})();
+
+function fmtPrice(n){ return "$" + Number(n).toLocaleString("en-US"); }
 function findProduct(id){ return PRODUCTS.find(function(p){ return p.id === id; }); }
 function imgUrl(photoId, w){
   return "https://images.pexels.com/photos/" + photoId + "/pexels-photo-" + photoId + ".jpeg?auto=compress&cs=tinysrgb&w=" + (w || 800);
+}
+function productImage(p, w){
+  return p.image ? p.image : imgUrl(p.photoId, w);
 }
 
 function productCardHTML(p){
   return '' +
     '<article class="product-card" data-cat="'+p.category+'">' +
-      '<div class="product-stage"><img class="media-frame" src="'+imgUrl(p.photoId,600)+'" alt="'+p.fullName+'" loading="lazy"></div>' +
+      '<div class="product-stage"><img class="media-frame" src="'+productImage(p,600)+'" alt="'+p.fullName+'" loading="lazy"></div>' +
       '<h4>'+p.name+'</h4>' +
       '<span class="cat-label">'+CATEGORY_LABELS[p.category]+'</span>' +
       '<div class="product-foot">' +
@@ -911,6 +1044,10 @@ function initCatalogPage(){
     grid.innerHTML = list.length ? list.map(productCardHTML).join('')
       : '<p class="empty-state">No pieces in this category yet — check back soon, or enquire and we\'ll let you know when new stock lands.</p>';
   }
+  window.refreshCatalogGrid = function(){
+    var activeChip = filterRow.querySelector('.filter-chip.active');
+    render(activeChip ? activeChip.dataset.filter : 'all');
+  };
   var chips = filterRow.querySelectorAll('.filter-chip');
   chips.forEach(function(chip){
     chip.addEventListener('click', function(){
@@ -951,7 +1088,7 @@ function renderProduct(id){
       '<span>'+p.fullName+'</span>' +
     '</div>' +
     '<div class="product-detail">' +
-      '<div class="product-detail-stage reveal in"><img class="media-frame" src="'+imgUrl(p.photoId,900)+'" alt="'+p.fullName+'" loading="lazy"></div>' +
+      '<div class="product-detail-stage reveal in"><img class="media-frame" src="'+productImage(p,900)+'" alt="'+p.fullName+'" loading="lazy"></div>' +
       '<div class="product-info reveal in">' +
         '<span class="cat-label">'+CATEGORY_LABELS[p.category]+'</span>' +
         '<h1>'+p.fullName+'</h1>' +
@@ -980,15 +1117,24 @@ function renderProduct(id){
   }
 }
 
-function initContactOnce(){
+function refreshProductInterestOptions(){
   var select = document.getElementById('productInterest');
-  if(!select || select.dataset.filled) return;
+  if(!select) return;
+  var current = select.value;
+  select.innerHTML = '<option value="General enquiry">General enquiry</option>';
   PRODUCTS.forEach(function(p){
     var opt = document.createElement('option');
     opt.value = p.fullName;
     opt.textContent = p.fullName + " — " + fmtPrice(p.price);
     select.appendChild(opt);
   });
+  if(Array.from(select.options).some(function(o){ return o.value === current; })){ select.value = current; }
+}
+
+function initContactOnce(){
+  var select = document.getElementById('productInterest');
+  if(!select || select.dataset.filled) return;
+  refreshProductInterestOptions();
   select.dataset.filled = '1';
 
   var form = document.getElementById('enquiryForm');
@@ -1118,7 +1264,341 @@ document.addEventListener('DOMContentLoaded', function(){
   initContactOnce();
   initReveal();
   router();
+  if(typeof initSiteEditor === 'function'){ initSiteEditor(); }
 });
+</script>
+
+<script>
+/* ============================================================
+   SITE EDITOR (admin) — tap the logo 5x to log in, then edit
+   page text and products directly on the live page.
+
+   IMPORTANT — read this before relying on it:
+   - Change ADMIN_USER / ADMIN_PASS below before publishing.
+   - This is a client-side-only gate for a static HTML file with
+     no server. Anyone who views the page source can find the
+     credentials, so it stops casual visitors, not a determined
+     attacker. For real security, put this behind proper backend
+     authentication.
+   - Edits save to *this browser's* local storage only — they are
+     not visible to other visitors automatically. Use "Download
+     Updated Site" after editing and re-upload that file to your
+     host to publish the changes for everyone.
+   ============================================================ */
+(function(){
+  var ADMIN_USER = "admin";
+  var ADMIN_PASS = "opulent2026"; // change this before publishing
+
+  var SESSION_KEY = 'opulent_admin_logged_in';
+  var TEXT_EDITS_KEY = 'opulent_edits_text';
+  var PRODUCT_EDITS_KEY = 'opulent_edits_products';
+
+  var tapCount = 0, tapTimer = null;
+  var textEditMode = false;
+  var editingProductId = null; // null while adding a new product
+
+  var EDITABLE_SELECTOR = [
+    '.hero-copy h1', '.hero-sub',
+    '.section-head h2', '.section-head .head-note',
+    '.about-lede',
+    '.stat span', '.stat label',
+    '.page-hero h1', '.page-hero .sub',
+    '.piece-card h3', '.piece-card p',
+    '.footer-brand p', '.footer-col h5', '.footer-bottom span',
+    '.form-note', '.map-note',
+    '.contact-info-card h3'
+  ].join(',');
+
+  function $(id){ return document.getElementById(id); }
+  function showStatus(msg){
+    var el = $('etStatus');
+    if(!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(function(){ el.classList.remove('show'); }, 1800);
+  }
+
+  /* ---------- tag editable text elements with stable ids ---------- */
+  function tagEditableElements(){
+    var nodes = document.querySelectorAll(EDITABLE_SELECTOR);
+    nodes.forEach(function(el, i){
+      if(!el.dataset.editId){ el.dataset.editId = 'auto-' + i; }
+      el.setAttribute('data-editable', 'true');
+    });
+  }
+
+  function applySavedTextEdits(){
+    var saved;
+    try{ saved = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}'); }catch(e){ saved = {}; }
+    Object.keys(saved).forEach(function(id){
+      var el = document.querySelector('[data-edit-id="'+id+'"]');
+      if(el){ el.innerHTML = saved[id]; }
+    });
+  }
+
+  function saveTextEdit(el){
+    var saved;
+    try{ saved = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}'); }catch(e){ saved = {}; }
+    saved[el.dataset.editId] = el.innerHTML;
+    localStorage.setItem(TEXT_EDITS_KEY, JSON.stringify(saved));
+    showStatus('Saved');
+  }
+
+  /* ---------- login gate: tap/click logo 5x ---------- */
+  function initTapGate(){
+    var logo = $('siteLogo');
+    if(!logo) return;
+    logo.addEventListener('click', function(){
+      if(isLoggedIn()) return; // already in edit mode, let the link behave normally
+      tapCount++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(function(){ tapCount = 0; }, 2500);
+      if(tapCount >= 5){
+        tapCount = 0;
+        openLogin();
+      }
+    });
+  }
+
+  function openLogin(){
+    $('adminLoginError').classList.remove('show');
+    $('adminLoginForm').reset();
+    $('adminLoginOverlay').classList.add('show');
+    setTimeout(function(){ $('adminUser').focus(); }, 50);
+  }
+  function closeLogin(){ $('adminLoginOverlay').classList.remove('show'); }
+
+  function isLoggedIn(){ return localStorage.getItem(SESSION_KEY) === '1'; }
+
+  function initLoginForm(){
+    $('adminLoginClose').addEventListener('click', closeLogin);
+    $('adminLoginOverlay').addEventListener('click', function(e){ if(e.target === this) closeLogin(); });
+    $('adminLoginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var u = $('adminUser').value.trim();
+      var p = $('adminPass').value;
+      if(u === ADMIN_USER && p === ADMIN_PASS){
+        localStorage.setItem(SESSION_KEY, '1');
+        closeLogin();
+        enterEditMode();
+      } else {
+        $('adminLoginError').classList.add('show');
+      }
+    });
+  }
+
+  function enterEditMode(){
+    $('editToolbar').classList.add('show');
+  }
+
+  function logOut(){
+    localStorage.removeItem(SESSION_KEY);
+    if(textEditMode){ toggleTextEdit(); }
+    $('editToolbar').classList.remove('show');
+    showStatus('Logged out');
+  }
+
+  /* ---------- text edit toggle ---------- */
+  function toggleTextEdit(){
+    textEditMode = !textEditMode;
+    var btn = $('btnToggleTextEdit');
+    var nodes = document.querySelectorAll('[data-editable="true"]');
+    nodes.forEach(function(el){
+      el.setAttribute('contenteditable', textEditMode ? 'true' : 'false');
+    });
+    btn.classList.toggle('active', textEditMode);
+    btn.textContent = textEditMode ? 'Done Editing Text' : 'Edit Text';
+    if(textEditMode){
+      showStatus('Click any highlighted text to edit it');
+    }
+  }
+
+  function initTextEditing(){
+    document.querySelectorAll('[data-editable="true"]').forEach(function(el){
+      el.addEventListener('blur', function(){
+        if(textEditMode) saveTextEdit(el);
+      });
+    });
+    $('btnToggleTextEdit').addEventListener('click', toggleTextEdit);
+  }
+
+  /* ---------- product manager ---------- */
+  function persistProducts(){
+    localStorage.setItem(PRODUCT_EDITS_KEY, JSON.stringify(PRODUCTS));
+  }
+
+  function refreshAllProductViews(){
+    if(typeof initHomeTeaser === 'function') initHomeTeaser();
+    if(typeof window.refreshCatalogGrid === 'function') window.refreshCatalogGrid();
+    if(typeof refreshProductInterestOptions === 'function') refreshProductInterestOptions();
+    if(typeof router === 'function') router(); // refreshes product detail view if that's the active one
+  }
+
+  function slugify(s){
+    return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  }
+  function uniqueId(base){
+    var id = base, n = 2;
+    while(PRODUCTS.some(function(p){ return p.id === id; })){ id = base + '-' + n; n++; }
+    return id;
+  }
+
+  function populateCategorySelect(){
+    var sel = $('pmCategory');
+    sel.innerHTML = '';
+    Object.keys(CATEGORY_LABELS).forEach(function(key){
+      var opt = document.createElement('option');
+      opt.value = key; opt.textContent = CATEGORY_LABELS[key];
+      sel.appendChild(opt);
+    });
+  }
+
+  function renderProductList(){
+    var list = $('pmList');
+    list.innerHTML = PRODUCTS.map(function(p){
+      return '<div class="pm-row">' +
+        '<img src="'+productImage(p,100)+'" alt="">' +
+        '<div class="pm-row-info"><strong>'+p.fullName+'</strong><span>'+CATEGORY_LABELS[p.category]+' · '+fmtPrice(p.price)+'</span></div>' +
+        '<div class="pm-row-actions">' +
+          '<button type="button" class="pm-edit-btn" data-edit="'+p.id+'">Edit</button>' +
+          '<button type="button" class="pm-del-btn" data-del="'+p.id+'">Delete</button>' +
+        '</div>' +
+      '</div>';
+    }).join('') || '<p class="empty-state">No products yet.</p>';
+
+    list.querySelectorAll('[data-edit]').forEach(function(btn){
+      btn.addEventListener('click', function(){ openProductForm(findProduct(btn.dataset.edit)); });
+    });
+    list.querySelectorAll('[data-del]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(confirm('Delete this product? This cannot be undone.')){
+          PRODUCTS = PRODUCTS.filter(function(p){ return p.id !== btn.dataset.del; });
+          persistProducts();
+          renderProductList();
+          refreshAllProductViews();
+          showStatus('Product deleted');
+        }
+      });
+    });
+  }
+
+  function openProductForm(p){
+    editingProductId = p ? p.id : null;
+    $('pmForm').classList.add('show');
+    $('pmError').classList.remove('show');
+    $('pmFormTitle').textContent = p ? 'Edit product' : 'Add new product';
+    $('pmId').value = p ? p.id : '';
+    $('pmName').value = p ? p.name : '';
+    $('pmFullName').value = p ? p.fullName : '';
+    $('pmCategory').value = p ? p.category : Object.keys(CATEGORY_LABELS)[0];
+    $('pmPrice').value = p ? p.price : '';
+    $('pmImage').value = p ? productImage(p, 900) : '';
+    $('pmBlurb').value = p ? p.blurb : '';
+    $('pmDescription').value = p ? p.description : '';
+    $('pmDimensions').value = p ? p.dimensions : 'Contact us for exact dimensions';
+    $('pmLead').value = p ? p.lead : 'Contact us for lead time';
+    $('pmMaterials').value = p && p.materials ? p.materials.join(', ') : '';
+    $('pmFeatured').checked = p ? !!p.featured : false;
+    $('pmForm').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function closeProductForm(){
+    $('pmForm').classList.remove('show');
+    editingProductId = null;
+  }
+
+  function saveProductForm(){
+    var name = $('pmName').value.trim();
+    var fullName = $('pmFullName').value.trim() || name;
+    var price = parseFloat($('pmPrice').value);
+    var image = $('pmImage').value.trim();
+    if(!name || isNaN(price) || !image){
+      $('pmError').textContent = 'Please fill in card name, price, and image URL.';
+      $('pmError').classList.add('show');
+      return;
+    }
+    var materials = $('pmMaterials').value.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    var data = {
+      name: name, fullName: fullName,
+      category: $('pmCategory').value,
+      price: price,
+      image: image,
+      blurb: $('pmBlurb').value.trim(),
+      description: $('pmDescription').value.trim(),
+      dimensions: $('pmDimensions').value.trim(),
+      lead: $('pmLead').value.trim(),
+      materials: materials.length ? materials : ['Contact us for details'],
+      featured: $('pmFeatured').checked,
+      icon: 'ic-sofa'
+    };
+
+    if(editingProductId){
+      var existing = findProduct(editingProductId);
+      Object.assign(existing, data);
+    } else {
+      data.id = uniqueId(slugify(fullName || name));
+      PRODUCTS.push(data);
+    }
+    persistProducts();
+    closeProductForm();
+    renderProductList();
+    refreshAllProductViews();
+    showStatus('Product saved');
+  }
+
+  function initProductManager(){
+    populateCategorySelect();
+    $('btnManageProducts').addEventListener('click', function(){
+      renderProductList();
+      closeProductForm();
+      $('productManagerOverlay').classList.add('show');
+    });
+    $('pmClose').addEventListener('click', function(){ $('productManagerOverlay').classList.remove('show'); });
+    $('productManagerOverlay').addEventListener('click', function(e){ if(e.target === this) $('productManagerOverlay').classList.remove('show'); });
+    $('pmAddNew').addEventListener('click', function(){ openProductForm(null); });
+    $('pmCancel').addEventListener('click', closeProductForm);
+    $('pmSave').addEventListener('click', saveProductForm);
+  }
+
+  /* ---------- download updated site file ---------- */
+  function downloadSite(){
+    var clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+    clone.querySelectorAll('.show').forEach(function(el){ el.classList.remove('show'); });
+    clone.querySelectorAll('.edit-toolbar').forEach(function(el){ el.classList.remove('show'); });
+    var scripts = clone.querySelectorAll('script');
+    scripts.forEach(function(s){
+      if(s.textContent.indexOf('PRODUCTS = [') !== -1){
+        s.textContent = s.textContent.replace(
+          /let\s+PRODUCTS\s*=\s*\[[\s\S]*?\n\];/,
+          'let PRODUCTS = ' + JSON.stringify(PRODUCTS, null, 2) + ';'
+        );
+      }
+    });
+    var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    var blob = new Blob([html], {type:'text/html'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'index.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showStatus('Downloaded');
+  }
+
+  /* ---------- init ---------- */
+  window.initSiteEditor = function(){
+    tagEditableElements();
+    applySavedTextEdits();
+    initTapGate();
+    initLoginForm();
+    initTextEditing();
+    initProductManager();
+    $('btnDownloadSite').addEventListener('click', downloadSite);
+    $('btnLogout').addEventListener('click', logOut);
+    if(isLoggedIn()){ enterEditMode(); }
+  };
+})();
 </script>
 
 </body>
