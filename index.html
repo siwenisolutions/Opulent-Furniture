@@ -227,6 +227,12 @@
   .admin-error.show{display:block;}
   .admin-check{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--purple-deep);}
   .admin-check input{width:auto;}
+  .pw-field{position:relative;}
+  .pw-field input{padding-right:44px;}
+  .pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--purple-deep);opacity:.6;}
+  .pw-toggle:hover{opacity:1;background:var(--cream-deep);}
+  .pw-toggle svg{width:17px;height:17px;}
+  .admin-error.lockout{display:block;font-weight:700;}
 
   /* toolbar */
   .edit-toolbar{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9998;background:var(--purple-deep);color:var(--cream);border-radius:100px;padding:10px 10px 10px 20px;box-shadow:0 20px 40px -14px rgba(46,15,73,.55);align-items:center;gap:8px;flex-wrap:nowrap;max-width:calc(100vw - 32px);overflow-x:auto;scrollbar-width:thin;}
@@ -414,6 +420,8 @@
 <symbol id="ic-phone" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2C10.5 21 3 13.5 3 6a2 2 0 0 1 2-2Z"/></symbol>
 <symbol id="ic-pin" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M12 21s7-7.2 7-12a7 7 0 0 0-14 0c0 4.8 7 12 7 12Z"/><circle class="fx" cx="12" cy="9" r="2.4" fill="none" stroke="currentColor"/></symbol>
 <symbol id="ic-clock" viewBox="0 0 24 24"><circle class="fx" cx="12" cy="12" r="9" fill="none" stroke="currentColor"/><path class="fx" fill="none" stroke="currentColor" d="M12 7v5l4 2"/></symbol>
+<symbol id="ic-eye" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M2 12c2.5-5 6.5-8 10-8s7.5 3 10 8c-2.5 5-6.5 8-10 8s-7.5-3-10-8Z"/><circle class="fx" cx="12" cy="12" r="3" fill="none" stroke="currentColor"/></symbol>
+<symbol id="ic-eye-off" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M3 3l18 18"/><path class="fx" fill="none" stroke="currentColor" d="M10.6 5.2C11 5.1 11.5 5 12 5c3.5 0 7.5 3 10 8-.8 1.6-1.8 3-3 4.1M6.5 6.7C4.6 8 3 9.8 2 12c2.5 5 6.5 8 10 8 1.3 0 2.6-.4 3.8-1.1"/><path class="fx" fill="none" stroke="currentColor" d="M9.9 10c-.6.6-.9 1.3-.9 2 0 1.7 1.3 3 3 3 .7 0 1.4-.3 2-.9"/></symbol>
 <symbol id="ic-whatsapp" viewBox="0 0 24 24"><path class="fx" fill="none" stroke="currentColor" d="M4 20l1.4-4.2A8 8 0 1 1 8.7 19L4 20Z"/><path class="fx" fill="none" stroke="currentColor" d="M9 9c0 3.5 2.5 6 6 6"/></symbol>
 <symbol id="ic-armchair" viewBox="0 0 200 200">
   <path fill="var(--purple)" d="M46 70 C46 52 58 40 78 40 H122 C142 40 154 52 154 70 V118 H46 Z"/>
@@ -846,8 +854,14 @@
     <div class="admin-error" id="adminLoginError">Incorrect username or password.</div>
     <form id="adminLoginForm">
       <div class="admin-field"><label for="adminUser">Username</label><input type="text" id="adminUser" name="adminUser" autocomplete="username" required></div>
-      <div class="admin-field"><label for="adminPass">Password</label><input type="password" id="adminPass" name="adminPass" autocomplete="current-password" required></div>
-      <button class="btn btn-dark" type="submit" style="width:100%;justify-content:center;">Log in</button>
+      <div class="admin-field">
+        <label for="adminPass">Password</label>
+        <div class="pw-field">
+          <input type="password" id="adminPass" name="adminPass" autocomplete="current-password" required>
+          <button type="button" class="pw-toggle" id="adminPassToggle" aria-label="Show password"><svg><use href="#ic-eye"/></svg></button>
+        </div>
+      </div>
+      <button class="btn btn-dark" type="submit" id="adminLoginSubmit" style="width:100%;justify-content:center;">Log in</button>
     </form>
   </div>
 </div>
@@ -919,7 +933,13 @@
     <p class="admin-sub">Paste a fine-grained GitHub token scoped to just this repo (Contents: Read and write). It's stored only in this browser and is never written into the site file.</p>
     <div class="admin-error" id="ghTokenError">Please paste a token first.</div>
     <form id="ghTokenForm">
-      <div class="admin-field"><label for="ghTokenInput">GitHub Token</label><input type="password" id="ghTokenInput" autocomplete="off" placeholder="github_pat_..."></div>
+      <div class="admin-field">
+        <label for="ghTokenInput">GitHub Token</label>
+        <div class="pw-field">
+          <input type="password" id="ghTokenInput" autocomplete="off" placeholder="github_pat_...">
+          <button type="button" class="pw-toggle" id="ghTokenToggle" aria-label="Show token"><svg><use href="#ic-eye"/></svg></button>
+        </div>
+      </div>
       <button class="btn btn-dark" type="submit" style="width:100%;justify-content:center;">Save &amp; Publish</button>
     </form>
   </div>
@@ -1594,28 +1614,108 @@ document.addEventListener('DOMContentLoaded', async function(){
   }
 
   function openLogin(){
-    $('adminLoginError').classList.remove('show');
+    $('adminLoginError').classList.remove('show', 'lockout');
     $('adminLoginForm').reset();
     $('adminLoginOverlay').classList.add('show');
-    setTimeout(function(){ $('adminUser').focus(); }, 50);
+    updateLockoutUI(); // in case a lockout from a previous attempt is still counting down
+    if(!isLockedOut()){ setTimeout(function(){ $('adminUser').focus(); }, 50); }
   }
-  function closeLogin(){ $('adminLoginOverlay').classList.remove('show'); }
+  function closeLogin(){
+    $('adminLoginOverlay').classList.remove('show');
+    clearInterval(lockoutTimer);
+  }
 
   function isLoggedIn(){ return localStorage.getItem(SESSION_KEY) === '1'; }
+
+  /* ---------- login attempt lockout ---------- */
+  var LOGIN_ATTEMPTS_KEY = 'opulent_login_attempts';
+  var MAX_ATTEMPTS = 3;
+  var LOCKOUT_MS = 60 * 1000; // 1 minute
+  var lockoutTimer = null;
+
+  function getLoginAttempts(){
+    try{ return JSON.parse(localStorage.getItem(LOGIN_ATTEMPTS_KEY) || '{}'); }catch(e){ return {}; }
+  }
+  function setLoginAttempts(data){ localStorage.setItem(LOGIN_ATTEMPTS_KEY, JSON.stringify(data)); }
+
+  function isLockedOut(){
+    var a = getLoginAttempts();
+    return !!(a.lockUntil && a.lockUntil > Date.now());
+  }
+
+  function registerFailedAttempt(){
+    var a = getLoginAttempts();
+    var count = (a.count || 0) + 1;
+    if(count >= MAX_ATTEMPTS){
+      setLoginAttempts({ count: 0, lockUntil: Date.now() + LOCKOUT_MS });
+    } else {
+      setLoginAttempts({ count: count, lockUntil: 0 });
+    }
+  }
+
+  function clearLoginAttempts(){ setLoginAttempts({ count: 0, lockUntil: 0 }); }
+
+  function updateLockoutUI(){
+    var a = getLoginAttempts();
+    var errEl = $('adminLoginError');
+    var submitBtn = $('adminLoginSubmit');
+    clearInterval(lockoutTimer);
+
+    if(a.lockUntil && a.lockUntil > Date.now()){
+      submitBtn.disabled = true;
+      var tick = function(){
+        var remaining = Math.max(0, a.lockUntil - Date.now());
+        if(remaining <= 0){
+          clearInterval(lockoutTimer);
+          submitBtn.disabled = false;
+          errEl.classList.remove('show', 'lockout');
+          return;
+        }
+        var secs = Math.ceil(remaining / 1000);
+        errEl.textContent = 'Too many failed attempts. Try again in ' + secs + 's.';
+        errEl.classList.add('show', 'lockout');
+      };
+      tick();
+      lockoutTimer = setInterval(tick, 500);
+    } else {
+      submitBtn.disabled = false;
+    }
+  }
+
+  function initPasswordToggle(inputId, btnId){
+    var input = $(inputId), btn = $(btnId);
+    if(!input || !btn) return;
+    btn.addEventListener('click', function(){
+      var showing = input.type === 'text';
+      input.type = showing ? 'password' : 'text';
+      btn.innerHTML = showing ? '<svg><use href="#ic-eye"/></svg>' : '<svg><use href="#ic-eye-off"/></svg>';
+      btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+    });
+  }
 
   function initLoginForm(){
     $('adminLoginClose').addEventListener('click', closeLogin);
     $('adminLoginOverlay').addEventListener('click', function(e){ if(e.target === this) closeLogin(); });
+    initPasswordToggle('adminPass', 'adminPassToggle');
     $('adminLoginForm').addEventListener('submit', function(e){
       e.preventDefault();
+      if(isLockedOut()){ updateLockoutUI(); return; }
       var u = $('adminUser').value.trim();
       var p = $('adminPass').value;
       if(u === ADMIN_USER && p === ADMIN_PASS){
+        clearLoginAttempts();
         localStorage.setItem(SESSION_KEY, '1');
         closeLogin();
         enterEditMode();
       } else {
-        $('adminLoginError').classList.add('show');
+        registerFailedAttempt();
+        if(isLockedOut()){
+          updateLockoutUI();
+        } else {
+          $('adminLoginError').textContent = 'Incorrect username or password.';
+          $('adminLoginError').classList.add('show');
+          $('adminLoginError').classList.remove('lockout');
+        }
       }
     });
   }
@@ -1996,6 +2096,7 @@ document.addEventListener('DOMContentLoaded', async function(){
   function initTokenModal(){
     $('ghTokenClose').addEventListener('click', closeTokenModal);
     $('ghTokenOverlay').addEventListener('click', function(e){ if(e.target === this) closeTokenModal(); });
+    initPasswordToggle('ghTokenInput', 'ghTokenToggle');
     $('ghTokenForm').addEventListener('submit', function(e){
       e.preventDefault();
       var token = $('ghTokenInput').value.trim();
