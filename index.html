@@ -245,6 +245,8 @@
 
   [data-editable="true"][contenteditable="true"]{outline:2px dashed var(--gold);outline-offset:4px;border-radius:6px;background:rgba(224,193,105,.08);cursor:text;}
   [data-editable="true"][contenteditable="true"]:focus{outline-color:var(--purple);}
+  [data-img-editable="true"].img-edit-active{outline:3px dashed var(--gold);outline-offset:-3px;cursor:pointer;transition:outline-color .2s;}
+  [data-img-editable="true"].img-edit-active:hover{outline-color:var(--purple);}
 
   /* product manager */
   .pm-add-row{display:flex;justify-content:flex-end;margin-bottom:16px;}
@@ -869,11 +871,34 @@
 <div class="edit-toolbar admin-only" id="editToolbar">
   <span class="et-label">Edit Mode</span>
   <button class="et-toggle" type="button" id="btnToggleTextEdit">Edit Text</button>
+  <button class="et-toggle" type="button" id="btnToggleImageEdit">Edit Images</button>
   <button class="et-action" type="button" id="btnManageProducts">Manage Products</button>
   <button class="et-action et-publish" type="button" id="btnPublish">Publish Live</button>
   <button class="et-action" type="button" id="btnDownloadSite">Download Backup</button>
   <span class="et-status" id="etStatus">Saved</span>
   <button class="et-logout" type="button" id="btnLogout">Log Out</button>
+</div>
+
+<div class="admin-overlay admin-only" id="imageEditOverlay">
+  <div class="admin-modal">
+    <button class="admin-close" type="button" id="imgEditClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
+    <p class="eyebrow">site editor</p>
+    <h2>Change Image</h2>
+    <p class="admin-sub">Upload a photo from this device, or paste an image URL.</p>
+    <div class="admin-field">
+      <div class="pm-image-row">
+        <img id="imgEditPreview" class="pm-image-preview" alt="" src="">
+        <div class="pm-image-controls">
+          <input type="file" id="imgEditFile" accept="image/*">
+          <input type="text" id="imgEditUrl" placeholder="or paste an image URL">
+        </div>
+      </div>
+    </div>
+    <div class="pm-form-actions">
+      <button class="btn btn-ghost btn-sm" type="button" id="imgEditCancel">Cancel</button>
+      <button class="btn btn-dark btn-sm" type="button" id="imgEditSave">Save image</button>
+    </div>
+  </div>
 </div>
 
 <div class="admin-overlay admin-only" id="ghTokenOverlay">
@@ -1338,11 +1363,13 @@ document.addEventListener('DOMContentLoaded', async function(){
 
   var SESSION_KEY = 'opulent_admin_logged_in';
   var TEXT_EDITS_KEY = 'opulent_edits_text';
+  var IMAGE_EDITS_KEY = 'opulent_edits_images';
   var PRODUCT_EDITS_KEY = 'opulent_edits_products';
   var GH_TOKEN_KEY = 'opulent_gh_token';
 
   var tapCount = 0, tapTimer = null;
   var textEditMode = false;
+  var imageEditMode = false;
   var editingProductId = null; // null while adding a new product
   var isGithubConfigured = GITHUB_OWNER.indexOf('YOUR-') !== 0 && GITHUB_REPO.indexOf('YOUR-') !== 0;
 
@@ -1356,6 +1383,15 @@ document.addEventListener('DOMContentLoaded', async function(){
     '.footer-brand p', '.footer-col h5', '.footer-bottom span',
     '.form-note', '.map-note',
     '.contact-info-card h3'
+  ].join(',');
+
+  // static, non-product images — product photos are edited via Manage Products instead,
+  // since those are tied to specific product records
+  var EDITABLE_IMAGE_SELECTOR = [
+    '.hero-art-stage img',
+    '.piece-stage img',
+    '.room-scene img',
+    '.footer-brand img'
   ].join(',');
 
   function $(id){ return document.getElementById(id); }
@@ -1377,10 +1413,25 @@ document.addEventListener('DOMContentLoaded', async function(){
     });
   }
 
+  function tagEditableImages(){
+    var nodes = document.querySelectorAll(EDITABLE_IMAGE_SELECTOR);
+    nodes.forEach(function(el, i){
+      if(!el.dataset.imgId){ el.dataset.imgId = 'img-' + i; }
+      el.setAttribute('data-img-editable', 'true');
+    });
+  }
+
   function applyTextEdits(map){
     Object.keys(map || {}).forEach(function(id){
       var el = document.querySelector('[data-edit-id="'+id+'"]');
       if(el){ el.innerHTML = map[id]; }
+    });
+  }
+
+  function applyImageEdits(map){
+    Object.keys(map || {}).forEach(function(id){
+      var el = document.querySelector('[data-img-id="'+id+'"]');
+      if(el){ el.src = map[id]; }
     });
   }
 
@@ -1392,9 +1443,18 @@ document.addEventListener('DOMContentLoaded', async function(){
     showStatus('Saved to your draft (click Publish Live to go live for everyone)');
   }
 
+  function saveImageEdit(el, newSrc){
+    var saved;
+    try{ saved = JSON.parse(localStorage.getItem(IMAGE_EDITS_KEY) || '{}'); }catch(e){ saved = {}; }
+    saved[el.dataset.imgId] = newSrc;
+    localStorage.setItem(IMAGE_EDITS_KEY, JSON.stringify(saved));
+    showStatus('Saved to your draft (click Publish Live to go live for everyone)');
+  }
+
   /* ---------- load published content (remote) + this browser's draft (local) ---------- */
   window.loadSiteContent = async function(){
     tagEditableElements();
+    tagEditableImages();
 
     // 1) published baseline, from the repo — this is what every visitor sees
     try{
@@ -1403,6 +1463,7 @@ document.addEventListener('DOMContentLoaded', async function(){
         var remote = await res.json();
         if(remote && Array.isArray(remote.products) && remote.products.length){ PRODUCTS = remote.products; }
         if(remote && remote.textEdits){ applyTextEdits(remote.textEdits); }
+        if(remote && remote.images){ applyImageEdits(remote.images); }
       }
     }catch(e){ /* no published file yet, or not hosted on GitHub Pages — fall back to page defaults */ }
 
@@ -1414,6 +1475,10 @@ document.addEventListener('DOMContentLoaded', async function(){
     try{
       var localText = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}');
       applyTextEdits(localText);
+    }catch(e){}
+    try{
+      var localImages = JSON.parse(localStorage.getItem(IMAGE_EDITS_KEY) || '{}');
+      applyImageEdits(localImages);
     }catch(e){}
   };
 
@@ -1467,6 +1532,7 @@ document.addEventListener('DOMContentLoaded', async function(){
   function logOut(){
     localStorage.removeItem(SESSION_KEY);
     if(textEditMode){ toggleTextEdit(); }
+    if(imageEditMode){ toggleImageEdit(); }
     $('editToolbar').classList.remove('show');
     showStatus('Logged out');
   }
@@ -1493,6 +1559,71 @@ document.addEventListener('DOMContentLoaded', async function(){
       });
     });
     $('btnToggleTextEdit').addEventListener('click', toggleTextEdit);
+  }
+
+  /* ---------- image edit toggle ---------- */
+  var currentEditingImg = null;
+
+  function toggleImageEdit(){
+    imageEditMode = !imageEditMode;
+    var btn = $('btnToggleImageEdit');
+    var nodes = document.querySelectorAll('[data-img-editable="true"]');
+    nodes.forEach(function(el){
+      el.classList.toggle('img-edit-active', imageEditMode);
+    });
+    btn.classList.toggle('active', imageEditMode);
+    btn.textContent = imageEditMode ? 'Done Editing Images' : 'Edit Images';
+    if(imageEditMode){
+      showStatus('Click any highlighted picture to change it');
+    }
+  }
+
+  function openImageModal(imgEl){
+    currentEditingImg = imgEl;
+    $('imgEditFile').value = '';
+    $('imgEditUrl').value = imgEl.src;
+    $('imgEditPreview').src = imgEl.src;
+    $('imageEditOverlay').classList.add('show');
+  }
+  function closeImageModal(){
+    $('imageEditOverlay').classList.remove('show');
+    currentEditingImg = null;
+  }
+
+  function initImageEditing(){
+    document.querySelectorAll('[data-img-editable="true"]').forEach(function(el){
+      el.addEventListener('click', function(e){
+        if(!imageEditMode) return;
+        e.preventDefault();
+        openImageModal(el);
+      });
+    });
+    $('btnToggleImageEdit').addEventListener('click', toggleImageEdit);
+
+    $('imgEditClose').addEventListener('click', closeImageModal);
+    $('imageEditOverlay').addEventListener('click', function(e){ if(e.target === this) closeImageModal(); });
+    $('imgEditCancel').addEventListener('click', closeImageModal);
+    $('imgEditUrl').addEventListener('input', function(){ $('imgEditPreview').src = this.value.trim(); });
+    $('imgEditFile').addEventListener('change', function(e){
+      var file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(file.size > 1.5 * 1024 * 1024){
+        alert('That image is over 1.5MB. Large images bloat the site file and slow the page down — consider resizing it first (e.g. squoosh.app) for best results.');
+      }
+      var reader = new FileReader();
+      reader.onload = function(){
+        $('imgEditUrl').value = reader.result;
+        $('imgEditPreview').src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    $('imgEditSave').addEventListener('click', function(){
+      var newSrc = $('imgEditUrl').value.trim();
+      if(!newSrc || !currentEditingImg) return;
+      currentEditingImg.src = newSrc;
+      saveImageEdit(currentEditingImg, newSrc);
+      closeImageModal();
+    });
   }
 
   /* ---------- product manager ---------- */
@@ -1707,7 +1838,11 @@ document.addEventListener('DOMContentLoaded', async function(){
     document.querySelectorAll('[data-editable="true"]').forEach(function(el){
       textEdits[el.dataset.editId] = el.innerHTML;
     });
-    return { textEdits: textEdits, products: PRODUCTS, updatedAt: new Date().toISOString() };
+    var images = {};
+    document.querySelectorAll('[data-img-editable="true"]').forEach(function(el){
+      images[el.dataset.imgId] = el.src;
+    });
+    return { textEdits: textEdits, images: images, products: PRODUCTS, updatedAt: new Date().toISOString() };
   }
 
   async function ghApi(method, body){
@@ -1781,6 +1916,7 @@ document.addEventListener('DOMContentLoaded', async function(){
     initTapGate();
     initLoginForm();
     initTextEditing();
+    initImageEditing();
     initProductManager();
     initTokenModal();
     $('btnDownloadSite').addEventListener('click', downloadSite);
