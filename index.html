@@ -742,13 +742,13 @@
         <div class="contact-info-card reveal">
           <p class="eyebrow">showroom &amp; contact</p>
           <h3>Opulent Furniture Pvt Ltd</h3>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-pin"/></svg></span><div><strong>Showroom address</strong><span>24 Enterprise Road, Highlands, Harare, Zimbabwe<br><em style="opacity:.7;font-style:italic;">(placeholder — update to your real address)</em></span></div></div>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-phone"/></svg></span><div><strong>Phone</strong><span><a href="tel:+263771234567">+263 77 123 4567</a> · <a href="tel:+263774080562">+263 77 408 0562</a></span></div></div>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-whatsapp"/></svg></span><div><strong>WhatsApp</strong><span><a href="https://wa.me/263771234567" target="_blank" rel="noopener">Chat with us</a> · <a href="https://wa.me/c/51642938466305" target="_blank" rel="noopener">+263 77 408 0562</a></span></div></div>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-mail"/></svg></span><div><strong>Email</strong><span><a href="mailto:hello@opulentfurniture.co.zw">hello@opulentfurniture.co.zw</a></span></div></div>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-clock"/></svg></span><div><strong>Showroom hours</strong><span>Mon–Fri, 8:30–17:00 · Sat, 9:00–13:00</span></div></div>
-          <div class="map-embed"><iframe src="https://www.google.com/maps?q=Enterprise+Road,+Highlands,+Harare,+Zimbabwe&output=embed" loading="lazy" title="Opulent Furniture showroom location"></iframe></div>
-          <p class="map-note">Map pin is approximate — swap in your exact showroom address before launch.</p>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-pin"/></svg></span><div><strong>Showroom address</strong><span id="contactAddress">24 Enterprise Road, Highlands, Harare, Zimbabwe</span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-phone"/></svg></span><div><strong>Phone</strong><span><a href="tel:+263771234567" id="contactPhone1">+263 77 123 4567</a><span id="contactPhone2Sep"> · </span><a href="tel:+263774080562" id="contactPhone2">+263 77 408 0562</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-whatsapp"/></svg></span><div><strong>WhatsApp</strong><span><a href="https://wa.me/263771234567" target="_blank" rel="noopener" id="contactWhatsapp">Chat with us</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-mail"/></svg></span><div><strong>Email</strong><span><a href="mailto:hello@opulentfurniture.co.zw" id="contactEmail">hello@opulentfurniture.co.zw</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-clock"/></svg></span><div><strong>Showroom hours</strong><span id="contactHours">Mon–Fri, 8:30–17:00 · Sat, 9:00–13:00</span></div></div>
+          <div class="map-embed"><iframe id="contactMapFrame" src="https://www.google.com/maps?q=Enterprise+Road,+Highlands,+Harare,+Zimbabwe&output=embed" loading="lazy" title="Opulent Furniture showroom location"></iframe></div>
+          <p class="map-note">Map pin is approximate to the address above.</p>
         </div>
 
         <div style="position:relative;">
@@ -792,7 +792,7 @@
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="logo.png" alt="Opulent Furniture Pvt Ltd">
+        <img src="data:image/webp;base64,LOGO_BASE64_PLACEHOLDER" alt="Opulent Furniture Pvt Ltd">
         <p>Quality modern home furniture, handcrafted in Harare and delivered across Zimbabwe. We also do customised furniture.</p>
       </div>
       <div class="footer-col">
@@ -856,6 +856,7 @@
   <span class="et-label">Edit Mode</span>
   <button class="et-toggle" type="button" id="btnToggleTextEdit">Edit Text</button>
   <button class="et-toggle" type="button" id="btnToggleImageEdit">Edit Images</button>
+  <button class="et-action" type="button" id="btnEditContact">Edit Contact Info</button>
   <button class="et-action" type="button" id="btnManageProducts">Manage Products</button>
   <button class="et-action et-publish" type="button" id="btnPublish">Publish Live</button>
   <button class="et-action" type="button" id="btnDownloadSite">Download Backup</button>
@@ -881,6 +882,31 @@
     <div class="pm-form-actions">
       <button class="btn btn-ghost btn-sm" type="button" id="imgEditCancel">Cancel</button>
       <button class="btn btn-dark btn-sm" type="button" id="imgEditSave">Save image</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-overlay admin-only" id="contactEditOverlay">
+  <div class="admin-modal admin-modal-wide">
+    <button class="admin-close" type="button" id="contactEditClose" aria-label="Close"><svg><use href="#ic-close"/></svg></button>
+    <p class="eyebrow">site editor</p>
+    <h2>Edit Contact Info</h2>
+    <p class="admin-sub">Update your showroom address, phone numbers, WhatsApp, email, hours, and the map location.</p>
+    <div class="admin-field"><label for="ceAddress">Showroom address</label><textarea id="ceAddress"></textarea></div>
+    <div class="admin-field-row">
+      <div class="admin-field"><label for="cePhone1">Phone 1</label><input type="text" id="cePhone1" placeholder="+263 77 123 4567"></div>
+      <div class="admin-field"><label for="cePhone2">Phone 2 (optional)</label><input type="text" id="cePhone2" placeholder="+263 77 408 0562"></div>
+    </div>
+    <div class="admin-field-row">
+      <div class="admin-field"><label for="ceWhatsapp">WhatsApp number</label><input type="text" id="ceWhatsapp" placeholder="+263 77 123 4567"></div>
+      <div class="admin-field"><label for="ceEmail">Email</label><input type="email" id="ceEmail" placeholder="hello@yoursite.com"></div>
+    </div>
+    <div class="admin-field"><label for="ceHours">Showroom hours</label><input type="text" id="ceHours" placeholder="Mon–Fri, 8:30–17:00 · Sat, 9:00–13:00"></div>
+    <div class="admin-field"><label for="ceMapQuery">Map location (address to search for)</label><input type="text" id="ceMapQuery" placeholder="24 Enterprise Road, Highlands, Harare, Zimbabwe"></div>
+    <div class="admin-error" id="ceError">Please fill in at least the address and one phone number.</div>
+    <div class="pm-form-actions">
+      <button class="btn btn-ghost btn-sm" type="button" id="ceCancel">Cancel</button>
+      <button class="btn btn-dark btn-sm" type="button" id="ceSave">Save contact info</button>
     </div>
   </div>
 </div>
@@ -1334,6 +1360,7 @@ document.addEventListener('DOMContentLoaded', async function(){
   var IMAGE_EDITS_KEY = 'opulent_edits_images';
   var PRODUCT_EDITS_KEY = 'opulent_edits_products';
   var GH_TOKEN_KEY = 'opulent_gh_token';
+  var CONTACT_EDITS_KEY = 'opulent_edits_contact';
 
   var tapCount = 0, tapTimer = null;
   var textEditMode = false;
@@ -1419,6 +1446,101 @@ document.addEventListener('DOMContentLoaded', async function(){
     showStatus('Saved to your draft (click Publish Live to go live for everyone)');
   }
 
+  /* ---------- contact info + map ---------- */
+  function digitsOnly(s){ return (s || '').replace(/[^\d+]/g, ''); }
+
+  function readContactInfoFromDOM(){
+    var mapFrame = $('contactMapFrame');
+    var mapMatch = mapFrame ? mapFrame.src.match(/[?&]q=([^&]+)/) : null;
+    return {
+      address: ($('contactAddress') || {}).textContent || '',
+      phone1: ($('contactPhone1') || {}).textContent || '',
+      phone2: ($('contactPhone2') || {}).textContent || '',
+      whatsapp: (($('contactWhatsapp') || {}).href || '').replace('https://wa.me/', ''),
+      email: (($('contactEmail') || {}).textContent) || '',
+      hours: ($('contactHours') || {}).textContent || '',
+      mapQuery: mapMatch ? decodeURIComponent(mapMatch[1].replace(/\+/g, ' ')) : ''
+    };
+  }
+
+  function applyContactInfo(data){
+    if(!data) return;
+    if(data.address && $('contactAddress')) $('contactAddress').textContent = data.address;
+    if(data.phone1 && $('contactPhone1')){
+      $('contactPhone1').textContent = data.phone1;
+      $('contactPhone1').href = 'tel:' + digitsOnly(data.phone1);
+    }
+    var phone2El = $('contactPhone2'), sepEl = $('contactPhone2Sep');
+    if(phone2El){
+      if(data.phone2){
+        phone2El.textContent = data.phone2;
+        phone2El.href = 'tel:' + digitsOnly(data.phone2);
+        phone2El.style.display = '';
+        if(sepEl) sepEl.style.display = '';
+      } else if(data.phone2 === ''){
+        phone2El.style.display = 'none';
+        if(sepEl) sepEl.style.display = 'none';
+      }
+    }
+    if(data.whatsapp && $('contactWhatsapp')){
+      $('contactWhatsapp').href = 'https://wa.me/' + digitsOnly(data.whatsapp).replace('+', '');
+    }
+    if(data.email && $('contactEmail')){
+      $('contactEmail').textContent = data.email;
+      $('contactEmail').href = 'mailto:' + data.email;
+    }
+    if(data.hours && $('contactHours')) $('contactHours').textContent = data.hours;
+    if(data.mapQuery && $('contactMapFrame')){
+      $('contactMapFrame').src = 'https://www.google.com/maps?q=' + encodeURIComponent(data.mapQuery) + '&output=embed';
+    }
+  }
+
+  function saveContactInfo(data){
+    localStorage.setItem(CONTACT_EDITS_KEY, JSON.stringify(data));
+    applyContactInfo(data);
+    showStatus('Saved to your draft (click Publish Live to go live for everyone)');
+  }
+
+  function openContactModal(){
+    var c = readContactInfoFromDOM();
+    $('ceError').classList.remove('show');
+    $('ceAddress').value = c.address;
+    $('cePhone1').value = c.phone1;
+    $('cePhone2').value = c.phone2;
+    $('ceWhatsapp').value = c.whatsapp;
+    $('ceEmail').value = c.email;
+    $('ceHours').value = c.hours;
+    $('ceMapQuery').value = c.mapQuery;
+    $('contactEditOverlay').classList.add('show');
+  }
+  function closeContactModal(){ $('contactEditOverlay').classList.remove('show'); }
+
+  function initContactEditor(){
+    $('btnEditContact').addEventListener('click', openContactModal);
+    $('contactEditClose').addEventListener('click', closeContactModal);
+    $('contactEditOverlay').addEventListener('click', function(e){ if(e.target === this) closeContactModal(); });
+    $('ceCancel').addEventListener('click', closeContactModal);
+    $('ceSave').addEventListener('click', function(){
+      var address = $('ceAddress').value.trim();
+      var phone1 = $('cePhone1').value.trim();
+      if(!address || !phone1){
+        $('ceError').classList.add('show');
+        return;
+      }
+      var data = {
+        address: address,
+        phone1: phone1,
+        phone2: $('cePhone2').value.trim(),
+        whatsapp: $('ceWhatsapp').value.trim() || phone1,
+        email: $('ceEmail').value.trim(),
+        hours: $('ceHours').value.trim(),
+        mapQuery: $('ceMapQuery').value.trim() || address
+      };
+      saveContactInfo(data);
+      closeContactModal();
+    });
+  }
+
   /* ---------- load published content (remote) + this browser's draft (local) ---------- */
   window.loadSiteContent = async function(){
     tagEditableElements();
@@ -1432,6 +1554,7 @@ document.addEventListener('DOMContentLoaded', async function(){
         if(remote && Array.isArray(remote.products) && remote.products.length){ PRODUCTS = remote.products; }
         if(remote && remote.textEdits){ applyTextEdits(remote.textEdits); }
         if(remote && remote.images){ applyImageEdits(remote.images); }
+        if(remote && remote.contact){ applyContactInfo(remote.contact); }
       }
     }catch(e){ /* no published file yet, or not hosted on GitHub Pages — fall back to page defaults */ }
 
@@ -1443,6 +1566,10 @@ document.addEventListener('DOMContentLoaded', async function(){
     try{
       var localText = JSON.parse(localStorage.getItem(TEXT_EDITS_KEY) || '{}');
       applyTextEdits(localText);
+    }catch(e){}
+    try{
+      var localContact = JSON.parse(localStorage.getItem(CONTACT_EDITS_KEY) || 'null');
+      if(localContact){ applyContactInfo(localContact); }
     }catch(e){}
     try{
       var localImages = JSON.parse(localStorage.getItem(IMAGE_EDITS_KEY) || '{}');
@@ -1810,7 +1937,7 @@ document.addEventListener('DOMContentLoaded', async function(){
     document.querySelectorAll('[data-img-editable="true"]').forEach(function(el){
       images[el.dataset.imgId] = el.src;
     });
-    return { textEdits: textEdits, images: images, products: PRODUCTS, updatedAt: new Date().toISOString() };
+    return { textEdits: textEdits, images: images, contact: readContactInfoFromDOM(), products: PRODUCTS, updatedAt: new Date().toISOString() };
   }
 
   async function ghApi(method, body){
@@ -1885,6 +2012,7 @@ document.addEventListener('DOMContentLoaded', async function(){
     initLoginForm();
     initTextEditing();
     initImageEditing();
+    initContactEditor();
     initProductManager();
     initTokenModal();
     $('btnDownloadSite').addEventListener('click', downloadSite);
