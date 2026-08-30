@@ -1,0 +1,416 @@
+{
+  "textEdits": {
+    "auto-0": "Sit Like<br><em>Royalty</em>",
+    "auto-1": "Handcrafted in Harare for households that don't do ordinary. Every Opulent piece pairs royal detailing with everyday comfort — built to be handed down, not replaced.",
+    "auto-2": "What About Us",
+    "auto-3": "\"Furniture shaped by heritage, not trends — soft where it should be, structured where it counts, and finished for a lifetime in the room.\"",
+    "auto-4": "14",
+    "auto-5": "years crafting in Harare",
+    "auto-6": "1,000+",
+    "auto-7": "pieces delivered nationwide",
+    "auto-8": "5yr",
+    "auto-9": "heirloom frame warranty",
+    "auto-10": "What's New",
+    "auto-11": "Softer forms, thoughtful comfort. Our new collection focuses on balance, material and quiet grandeur.",
+    "auto-12": "Real Leather Couches",
+    "auto-13": "On buffalo suede — the couch that anchors the whole living room.",
+    "auto-14": "4 Door Wardrobes",
+    "auto-15": "Melamine wardrobes built for a main bedroom's full wardrobe.",
+    "auto-16": "Fitted Kitchens",
+    "auto-17": "Fitted kitchen cupboards, made to your kitchen's exact dimensions.",
+    "auto-18": "What We Provide",
+    "auto-19": "A few customer favourites — the full catalog runs well past these.",
+    "auto-20": "What About Real Interiors",
+    "auto-21": "A few rooms we've furnished for clients across Harare — hover a room to see what's in it.",
+    "auto-22": "What We Provide",
+    "auto-23": "Every piece we currently make. Filter by category, then enquire — we'll confirm stock, lead time, and delivery to your area.",
+    "auto-24": "Visit the Showroom",
+    "auto-25": "Send an enquiry below and our team will confirm stock, pricing, and delivery — usually within one business day. Prefer to talk? Call or WhatsApp us directly.",
+    "auto-26": "Opulent Furniture Pvt Ltd",
+    "auto-27": "Map pin is approximate to the address above.",
+    "auto-28": "We reply within one business day. No account or payment needed to enquire.",
+    "auto-29": "Quality modern home furniture, handcrafted in Harare and delivered across Zimbabwe. We also do customised furniture.",
+    "auto-30": "Shop",
+    "auto-31": "Company",
+    "auto-32": "Stay Updated",
+    "auto-33": "© 2026 Opulent Furniture Pvt Ltd · Harare, Zimbabwe"
+  },
+  "images": {
+    "img-0": "https://images.pexels.com/photos/6969866/pexels-photo-6969866.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "img-1": "https://images.pexels.com/photos/6969866/pexels-photo-6969866.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "img-2": "https://images.pexels.com/photos/19050707/pexels-photo-19050707.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "img-3": "https://images.pexels.com/photos/2079233/pexels-photo-2079233.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "img-4": "https://images.pexels.com/photos/6969866/pexels-photo-6969866.jpeg?auto=compress&cs=tinysrgb&w=700",
+    "img-5": "https://images.pexels.com/photos/6312079/pexels-photo-6312079.jpeg?auto=compress&cs=tinysrgb&w=700",
+    "img-6": "https://images.pexels.com/photos/2079233/pexels-photo-2079233.jpeg?auto=compress&cs=tinysrgb&w=700",
+    "img-7": "data:image/webp;base64,LOGO_BASE64_PLACEHOLDER"
+  },
+  "contact": {
+    "address": "24 Enterprise Road, Highlands, Harare, Zimbabwe",
+    "phone1": "+263 77 123 4567",
+    "phone2": "+263 77 408 0562",
+    "whatsapp": "263771234567",
+    "email": "hello@opulentfurniture.co.zw",
+    "hours": "Mon–Fri, 8:30–17:00 · Sat, 9:00–13:00",
+    "mapQuery": "Enterprise Road, Highlands, Harare, Zimbabwe"
+  },
+  "products": [
+    {
+      "id": "fitted-kitchen-cupboards",
+      "photoId": 2079233,
+      "name": "Fitted Kitchen Cupboards",
+      "fullName": "Fitted Kitchen Cupboards",
+      "category": "kitchens",
+      "price": 800,
+      "originalPrice": 1000,
+      "icon": "ic-kitchen",
+      "featured": true,
+      "signature": true,
+      "blurb": "Fitted cupboards from $800, made to your kitchen's exact dimensions.",
+      "description": "Fitted kitchen cupboards built and installed to fit your kitchen exactly, starting from $800. Choose your board finish and layout — we'll come out to measure and quote before any work begins.",
+      "materials": [
+        "Board cutting to size",
+        "Edge-banded finish",
+        "Your choice of board colour"
+      ],
+      "dimensions": "Made to your kitchen's exact measurements",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "fitted-kitchen-suite",
+      "photoId": 6312079,
+      "name": "Fitted Kitchen Suite",
+      "fullName": "Fitted Kitchen Cupboards (Suite)",
+      "category": "kitchens",
+      "price": 800,
+      "originalPrice": 1000,
+      "icon": "ic-kitchen",
+      "featured": false,
+      "blurb": "Fitted cupboards from $800, with matching bench seating available.",
+      "description": "A second fitted-kitchen option from $800, with the option to add matching benches and headboard-style panelling for an open-plan kitchen and dining area.",
+      "materials": [
+        "Board cutting to size",
+        "Edge-banded finish",
+        "Optional matching bench seating"
+      ],
+      "dimensions": "Made to your kitchen's exact measurements",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "floating-tv-stands",
+      "photoId": 2079233,
+      "name": "Floating TV Stands",
+      "fullName": "Floating TV Stand",
+      "category": "tv-stands",
+      "price": 400,
+      "originalPrice": 500,
+      "icon": "ic-shelf",
+      "featured": true,
+      "blurb": "Prices vary with your wall dimensions.",
+      "description": "A wall-mounted floating TV stand, quoted from $400 depending on the width of your wall and unit size. Clean, minimal, and fitted directly to the wall for a modern look.",
+      "materials": [
+        "Board cutting to size",
+        "Wall-mount fixings",
+        "Quality boards, expert finish"
+      ],
+      "dimensions": "Sized to your wall — send us your measurements",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "fitted-kitchens-full",
+      "photoId": 6312079,
+      "name": "Fitted Kitchens",
+      "fullName": "Fitted Kitchens (Full Installation)",
+      "category": "kitchens",
+      "price": 1800,
+      "icon": "ic-kitchen",
+      "featured": false,
+      "signature": true,
+      "blurb": "Fitted kitchen prices differ depending on size and finish.",
+      "description": "A full fitted-kitchen installation for larger kitchens, from $1,800. Pricing differs based on your kitchen's size, layout, and chosen finish — get in touch for a free on-site quote.",
+      "materials": [
+        "Board cutting to size",
+        "Edging",
+        "Quality boards, expert finish"
+      ],
+      "dimensions": "Made to your kitchen's exact measurements",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "queen-mirror-headboard",
+      "photoId": 6312079,
+      "name": "Mirror Headboard",
+      "fullName": "Queen Size Mirror Headboard",
+      "category": "headboards",
+      "price": 150,
+      "icon": "ic-headboard",
+      "featured": true,
+      "blurb": "Any colour of your choice.",
+      "description": "A queen size upholstered headboard with a mirrored trim detail, made in any colour you choose to match your bedroom.",
+      "materials": [
+        "Upholstered panel",
+        "Mirror trim detail",
+        "Made to queen size"
+      ],
+      "dimensions": "Queen size",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "wood-items",
+      "photoId": 963486,
+      "name": "Wood Items",
+      "fullName": "Custom Wood Items",
+      "category": "wood-items",
+      "price": 1,
+      "icon": "ic-table",
+      "featured": false,
+      "blurb": "Uses Melamine or superwood — priced per item.",
+      "description": "General custom wood items made in melamine or superwood boards. Pricing starts from $1 and depends entirely on the item, size and finish you need — send us a photo or description for a quote.",
+      "materials": [
+        "Melamine board",
+        "Superwood board",
+        "Edge-banded finish"
+      ],
+      "dimensions": "Varies by item",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "outdoor-lounge-suite",
+      "photoId": 6585744,
+      "name": "Outdoor Lounge Suite",
+      "fullName": "Outdoor Lounge Suite",
+      "category": "outdoor",
+      "price": 1200,
+      "icon": "ic-sofa",
+      "featured": true,
+      "signature": true,
+      "blurb": "You choose material and colour.",
+      "description": "A full outdoor lounge suite for the patio or garden. You choose the wood, colour and cushion fabric, and we'll build the set to match your outdoor space.",
+      "materials": [
+        "Your choice of outdoor-grade wood",
+        "Weather-treated finish",
+        "Choice of cushion fabric"
+      ],
+      "dimensions": "Made to your space — contact us for options",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "outdoor-dining-suite",
+      "photoId": 914388,
+      "name": "Outdoor Dining Suite",
+      "fullName": "Outdoor Dining Suite",
+      "category": "outdoor",
+      "price": 1200,
+      "icon": "ic-table",
+      "featured": true,
+      "blurb": "Using Mahogany wood.",
+      "description": "A solid mahogany outdoor dining suite, built to handle Harare's outdoor conditions while keeping a warm, natural look for garden dinners and gatherings.",
+      "materials": [
+        "Solid mahogany wood",
+        "Weather-treated finish"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "wood-crafts",
+      "photoId": 6758242,
+      "name": "Wood Crafts",
+      "fullName": "Mahogany TV Stand & Coffee Table Set",
+      "category": "wood-items",
+      "price": 1200,
+      "icon": "ic-table",
+      "featured": false,
+      "blurb": "Mahogany TV stand and coffee table set.",
+      "description": "A matching mahogany TV stand and coffee table set, hand-crafted with a warm natural wood finish for the living room.",
+      "materials": [
+        "Solid mahogany wood",
+        "Hand-finished surface"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "high-back-chairs",
+      "photoId": 963486,
+      "name": "High Back Chairs",
+      "fullName": "High Back Chairs",
+      "category": "chairs",
+      "price": 150,
+      "icon": "ic-woodchair",
+      "featured": true,
+      "blurb": "Prices range from $150 to $250.",
+      "description": "Upholstered high back chairs, priced between $150 and $250 depending on the fabric and finish you choose. A statement seat for a living room corner or bedroom nook.",
+      "materials": [
+        "Upholstered fabric of choice",
+        "Solid wood frame"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "real-leather-couches",
+      "photoId": 6969866,
+      "name": "Real Leather Couches",
+      "fullName": "Real Leather Couches",
+      "category": "couches",
+      "price": 2000,
+      "icon": "ic-sofa",
+      "featured": true,
+      "signature": true,
+      "blurb": "On buffalo suede, from $900.",
+      "description": "Genuine leather couch sets finished in buffalo suede. Sets start from $900 for smaller configurations, up to $2,000 for a full living room suite — let us know your room size for an exact quote.",
+      "materials": [
+        "Buffalo suede leather",
+        "Hardwood internal frame",
+        "High-density foam fill"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "four-door-wardrobes",
+      "photoId": 19050707,
+      "name": "4 Door Wardrobes",
+      "fullName": "4 Door Wardrobes",
+      "category": "wardrobes",
+      "price": 350,
+      "icon": "ic-wardrobe",
+      "featured": true,
+      "blurb": "Melamine.",
+      "description": "A spacious four-door wardrobe finished in melamine board, built for a main bedroom that needs full hanging and shelf space.",
+      "materials": [
+        "Melamine board",
+        "Soft-close hinges"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "three-door-wardrobes",
+      "photoId": 6585745,
+      "name": "3 Door Wardrobes",
+      "fullName": "3 Door Wardrobes",
+      "category": "wardrobes",
+      "price": 300,
+      "icon": "ic-wardrobe",
+      "featured": false,
+      "blurb": "Melamine.",
+      "description": "A three-door melamine wardrobe, sized for a smaller bedroom or guest room without dropping the same build quality.",
+      "materials": [
+        "Melamine board",
+        "Soft-close hinges"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "bamboo-queen-bed",
+      "photoId": 4915583,
+      "name": "Bamboo Queen Bed",
+      "fullName": "Bamboo Queen Size Bed",
+      "category": "beds",
+      "price": 250,
+      "icon": "ic-bed",
+      "featured": true,
+      "blurb": "With pillowtop.",
+      "description": "A bamboo queen size bed base and mattress, finished with a pillowtop layer for extra comfort.",
+      "materials": [
+        "Bamboo mattress",
+        "Pillowtop layer"
+      ],
+      "dimensions": "Queen size",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "bamboo-double-bed",
+      "photoId": 4915583,
+      "name": "Bamboo Double Bed",
+      "fullName": "Bamboo Double Bed",
+      "category": "beds",
+      "price": 180,
+      "icon": "ic-bed",
+      "featured": false,
+      "blurb": "Without pillowtop.",
+      "description": "A bamboo double bed mattress without the pillowtop layer, for a firmer, more budget-friendly option.",
+      "materials": [
+        "Bamboo mattress"
+      ],
+      "dimensions": "Double size",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "side-pedestals",
+      "photoId": 10397037,
+      "name": "Side Pedestals",
+      "fullName": "Side Pedestals (Pair)",
+      "category": "pedestals",
+      "price": 150,
+      "icon": "ic-dresser",
+      "featured": false,
+      "blurb": "$150 for a pair.",
+      "description": "A pair of matching bedside pedestals, sold together, sized to sit either side of a queen or king bed.",
+      "materials": [
+        "Board cutting to size",
+        "Edge-banded finish"
+      ],
+      "dimensions": "Sold as a pair",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "bachelor-corner-couches",
+      "photoId": 6312357,
+      "name": "Bachelor Corner Couches",
+      "fullName": "Bachelor Corner Couch",
+      "category": "couches",
+      "price": 300,
+      "icon": "ic-sofa",
+      "featured": false,
+      "blurb": "Chesterfield style.",
+      "description": "A compact Chesterfield-style corner couch, sized for a bachelor flat or smaller living space without losing the classic tufted look.",
+      "materials": [
+        "Chesterfield-style upholstery",
+        "Compact corner frame"
+      ],
+      "dimensions": "Contact us for exact dimensions",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "mirrored-super-king-headboards",
+      "photoId": 6312079,
+      "name": "Mirrored Super King Headboard",
+      "fullName": "Mirrored Super King Headboard",
+      "category": "headboards",
+      "price": 220,
+      "icon": "ic-headboard",
+      "featured": false,
+      "blurb": "Any colour of your choice.",
+      "description": "A super king size headboard with mirrored detailing, upholstered in any colour you choose to match your bedroom scheme.",
+      "materials": [
+        "Upholstered panel",
+        "Mirror trim detail"
+      ],
+      "dimensions": "Super king size",
+      "lead": "Contact us for lead time"
+    },
+    {
+      "id": "headboards-queen",
+      "photoId": 6333856,
+      "name": "Headboards",
+      "fullName": "Queen Size Headboard",
+      "category": "headboards",
+      "price": 100,
+      "icon": "ic-headboard",
+      "featured": false,
+      "blurb": "Queen size.",
+      "description": "Our entry-level queen size headboard — simple, upholstered, and built to order.",
+      "materials": [
+        "Upholstered panel",
+        "Solid frame"
+      ],
+      "dimensions": "Queen size",
+      "lead": "Contact us for lead time"
+    }
+  ],
+  "updatedAt": "2026-08-30T15:40:33.875Z"
+}
