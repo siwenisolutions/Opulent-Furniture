@@ -375,8 +375,16 @@
     .stat-row{grid-template-columns:1fr;gap:20px;}
     .card-grid{grid-template-columns:1fr;}
     .swatch-track{grid-template-columns:repeat(2,1fr);}
-    .product-grid{grid-template-columns:repeat(2,1fr);}
-    .product-card{padding:16px;}
+    .product-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    .product-card{padding:12px;}
+    .product-stage{height:110px;margin-bottom:10px;}
+    .product-card h4{font-size:14px;}
+    .product-card .cat-label{font-size:10px;margin-bottom:8px;}
+    .product-foot{flex-wrap:wrap;gap:6px;}
+    .product-foot .price{font-size:14.5px;}
+    .product-links{gap:6px;}
+    .mini-link{width:30px;height:30px;}
+    .mini-link svg{width:12px;height:12px;}
     .filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;margin:0 -20px 30px;padding-left:20px;padding-right:20px;}
     .filter-chip{flex-shrink:0;}
     .catalog-more{flex-direction:column;align-items:flex-start;}
@@ -873,6 +881,7 @@
   <button class="et-action" type="button" id="btnEditContact">Edit Contact Info</button>
   <button class="et-action" type="button" id="btnManageProducts">Manage Products</button>
   <button class="et-action et-publish" type="button" id="btnPublish">Publish Live</button>
+  <button class="et-action" type="button" id="btnChangeToken">GitHub Token</button>
   <button class="et-action" type="button" id="btnDownloadSite">Download Backup</button>
   <span class="et-status" id="etStatus">Saved</span>
   <button class="et-logout" type="button" id="btnLogout">Log Out</button>
@@ -2047,14 +2056,21 @@ document.addEventListener('DOMContentLoaded', async function(){
     if(method === 'GET'){
       var getRes = await fetch(url + '?ref=' + GITHUB_BRANCH, { headers: headers });
       if(getRes.status === 404) return null;
-      if(!getRes.ok) throw new Error('GitHub read failed (' + getRes.status + ')');
+      if(!getRes.ok){
+        var getErrBody = await getRes.json().catch(function(){ return {}; });
+        var getErr = new Error(getErrBody.message || ('GitHub read failed (' + getRes.status + ')'));
+        getErr.status = getRes.status;
+        throw getErr;
+      }
       return getRes.json();
     }
     headers['Content-Type'] = 'application/json';
     var putRes = await fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
     if(!putRes.ok){
       var errBody = await putRes.json().catch(function(){ return {}; });
-      throw new Error(errBody.message || ('GitHub write failed (' + putRes.status + ')'));
+      var putErr = new Error(errBody.message || ('GitHub write failed (' + putRes.status + ')'));
+      putErr.status = putRes.status;
+      throw putErr;
     }
     return putRes.json();
   }
@@ -2081,7 +2097,17 @@ document.addEventListener('DOMContentLoaded', async function(){
       showStatus('Published! Live for everyone in a minute or two');
     }catch(err){
       console.error(err);
-      alert('Publish failed: ' + err.message + '\n\nCheck: your GitHub token hasn\'t expired and has Contents: Read & write access to this repo, and GITHUB_OWNER / GITHUB_REPO / GITHUB_BRANCH are correct.');
+      if(err.status === 401 || err.status === 403){
+        var msg = err.status === 401
+          ? 'Your GitHub token was rejected (invalid, expired, or revoked).'
+          : 'Your GitHub token was rejected (' + err.message + ') — it likely doesn\'t have write access to this repo, or (if this is an organization) the token is still waiting on org approval.';
+        if(confirm(msg + '\n\nEnter a new token now?')){
+          localStorage.removeItem(GH_TOKEN_KEY);
+          openTokenModal();
+        }
+      } else {
+        alert('Publish failed: ' + err.message + '\n\nCheck GITHUB_OWNER / GITHUB_REPO / GITHUB_BRANCH are correct, and that GitHub Pages + this repo are reachable.');
+      }
     }
   }
 
@@ -2118,6 +2144,7 @@ document.addEventListener('DOMContentLoaded', async function(){
     initTokenModal();
     $('btnDownloadSite').addEventListener('click', downloadSite);
     $('btnPublish').addEventListener('click', publishToGitHub);
+    $('btnChangeToken').addEventListener('click', openTokenModal);
     $('btnLogout').addEventListener('click', logOut);
     if(isLoggedIn()){ enterEditMode(); }
   };
