@@ -1165,6 +1165,9 @@ function renderProduct(id){
   var materialsHTML = p.materials.map(function(m){ return '<li>'+m+'</li>'; }).join('');
   var priceHTML = p.originalPrice ? (fmtPrice(p.price) + ' <span style="text-decoration:line-through;opacity:.5;font-size:18px;">'+fmtPrice(p.originalPrice)+'</span>') : fmtPrice(p.price);
 
+  var waMessage = "Hi, I'm interested in the " + p.fullName + " (" + fmtPrice(p.price) + "). Could you share more details on availability and delivery?";
+  var waHref = "https://wa.me/263774080562?text=" + encodeURIComponent(waMessage);
+
   root.innerHTML =
     '<div class="breadcrumb reveal in">' +
       '<a href="#/" data-route="">Home</a><span class="sep">/</span>' +
@@ -1185,8 +1188,7 @@ function renderProduct(id){
         '</div>' +
         '<div class="product-cta">' +
           '<a class="btn btn-dark" href="#/contact?product='+encodeURIComponent(p.fullName)+'">Enquire about this piece <svg><use href="#ic-mail"/></svg></a>' +
-          '<a class="btn btn-ghost" href="tel:+263774080562">Call +263 77 408 0562</a>' +
-          '<a class="btn btn-ghost" href="https://wa.me/c/51642938466305" target="_blank" rel="noopener">WhatsApp us</a>' +
+          '<a class="btn btn-ghost" href="'+waHref+'" target="_blank" rel="noopener">WhatsApp +263 77 408 0562 <svg><use href="#ic-whatsapp"/></svg></a>' +
           '<a class="btn btn-ghost" href="#/catalog" data-route="catalog">Back to catalog</a>' +
         '</div>' +
       '</div>' +
