@@ -1936,7 +1936,7 @@ document.addEventListener('DOMContentLoaded', async function(){
 
     list.innerHTML = PRODUCTS.map(function(p){
       return '<div class="pm-row" data-row="'+p.id+'">' +
-        '<img alt="">' +
+        '<img alt=""'+(productImage(p,200)?' src="'+productImage(p,200)+'"':'')+'>' +
         '<div class="pm-row-info"><strong>'+p.fullName+'</strong><span>'+CATEGORY_LABELS[p.category]+' · '+fmtPrice(p.price)+'</span></div>' +
         '<div class="pm-row-actions">' +
           '<button type="button" class="pm-edit-btn" data-edit="'+p.id+'">Edit</button>' +
