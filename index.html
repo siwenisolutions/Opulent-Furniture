@@ -1029,29 +1029,6 @@ function productImage(p, w){
   return p.image ? p.image : imgUrl(p.photoId, w);
 }
 
-/* Shares a product to WhatsApp. Where the device/browser supports the Web Share
-   API with file attachments (most mobile browsers), this opens the native share
-   sheet with the product photo attached alongside the message, and the person
-   picks WhatsApp from there. wa.me links have no way to attach an image, so on
-   desktop or unsupported browsers this falls back to the text-only chat link. */
-function shareProductToWhatsApp(message, imageDataUri, fileNameBase, fallbackHref){
-  function openFallback(){ window.open(fallbackHref, '_blank', 'noopener'); }
-  if(!imageDataUri || !navigator.share){ openFallback(); return; }
-  try{
-    var parts = imageDataUri.split(',');
-    var mimeMatch = /data:(.*?);base64/.exec(parts[0]);
-    var mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-    var binary = atob(parts[1]);
-    var bytes = new Uint8Array(binary.length);
-    for(var i=0;i<binary.length;i++){ bytes[i] = binary.charCodeAt(i); }
-    var ext = mime.indexOf('png') !== -1 ? 'png' : 'jpg';
-    var safeName = (fileNameBase || 'product').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    var file = new File([bytes], safeName + '.' + ext, { type: mime });
-    if(navigator.canShare && !navigator.canShare({ files: [file] })){ openFallback(); return; }
-    navigator.share({ text: message, files: [file] }).catch(function(){ openFallback(); });
-  }catch(e){ openFallback(); }
-}
-
 function productCardHTML(p){
   return '' +
     '<article class="product-card" data-cat="'+p.category+'" data-id="'+p.id+'">' +
@@ -1156,19 +1133,13 @@ function renderProduct(id){
         '</div>' +
         '<div class="product-cta">' +
           '<a class="btn btn-dark" href="#/contact?product='+encodeURIComponent(p.fullName)+'">Enquire about this piece <svg><use href="#ic-mail"/></svg></a>' +
-          '<button type="button" class="btn btn-ghost" id="waShareBtn">WhatsApp +263 77 408 0562 <svg><use href="#ic-whatsapp"/></svg></button>' +
+          '<a class="btn btn-ghost" href="'+waHref+'" target="_blank" rel="noopener">WhatsApp +263 77 408 0562 <svg><use href="#ic-whatsapp"/></svg></a>' +
           '<a class="btn btn-ghost" href="#/catalog" data-route="catalog">Back to catalog</a>' +
         '</div>' +
       '</div>' +
     '</div>';
 
   var mainImg = document.getElementById('productMainImg');
-  var waBtn = document.getElementById('waShareBtn');
-  if(waBtn){
-    waBtn.addEventListener('click', function(){
-      shareProductToWhatsApp(waMessage, productImage(p,900), p.fullName, waHref);
-    });
-  }
   root.querySelectorAll('.product-thumb').forEach(function(thumb){
     thumb.addEventListener('click', function(){
       if(mainImg) mainImg.src = thumb.dataset.thumbSrc;
