@@ -157,7 +157,7 @@
   .filter-chip{padding:10px 20px;border-radius:100px;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--purple-deep);background:var(--white);transition:all .3s;}
   .filter-chip.active,.filter-chip:hover{background:var(--gold);border-color:var(--gold);color:var(--purple-deep);}
   .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
-  .product-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:22px;text-align:left;transition:transform .35s, box-shadow .35s;display:flex;flex-direction:column;}
+  .product-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:22px;text-align:left;transition:transform .35s, box-shadow .35s;display:flex;flex-direction:column;cursor:pointer;}
   .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
   .product-stage{height:140px;border-radius:14px;margin-bottom:16px;overflow:hidden;background:var(--cream-deep);}
   .product-stage .media-frame{width:100%;height:100%;object-fit:cover;display:block;}
@@ -713,8 +713,8 @@
           <p class="eyebrow">showroom &amp; contact</p>
           <h3>Opulent Furniture Pvt Ltd</h3>
           <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-pin"/></svg></span><div><strong>Showroom address</strong><span id="contactAddress">3 Palm Crescent, Lochinvar, Harare, Zimbabwe</span></div></div>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-phone"/></svg></span><div><strong>Phone</strong><span><a href="tel:+263771234567" id="contactPhone1">+263 77 123 4567</a><span id="contactPhone2Sep"> · </span><a href="tel:+263774080562" id="contactPhone2">+263 77 408 0562</a></span></div></div>
-          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-whatsapp"/></svg></span><div><strong>WhatsApp</strong><span><a href="https://wa.me/263771234567" target="_blank" rel="noopener" id="contactWhatsapp">Chat with us</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-phone"/></svg></span><div><strong>Phone</strong><span><a href="tel:+263777865776" id="contactPhone1">+263 77 786 5776</a><span id="contactPhone2Sep"> · </span><a href="tel:+263774080562" id="contactPhone2">+263 77 408 0562</a></span></div></div>
+          <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-whatsapp"/></svg></span><div><strong>WhatsApp</strong><span><a href="https://wa.me/263777865776" target="_blank" rel="noopener" id="contactWhatsapp">Chat with us</a></span></div></div>
           <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-mail"/></svg></span><div><strong>Email</strong><span><a href="mailto:hello@opulentfurniture.co.zw" id="contactEmail">hello@opulentfurniture.co.zw</a></span></div></div>
           <div class="info-row"><span class="ic-wrap"><svg><use href="#ic-clock"/></svg></span><div><strong>Showroom hours</strong><span id="contactHours">Mon–Fri, 8:30–17:00 · Sat, 9:00–13:00</span></div></div>
           <div class="map-embed"><iframe id="contactMapFrame" src="https://www.google.com/maps?q=3+Palm+Crescent,+Lochinvar,+Harare,+Zimbabwe&output=embed" loading="lazy" title="Opulent Furniture showroom location"></iframe></div>
@@ -745,7 +745,7 @@
             <p>Thank you — a member of the Opulent team will get back to you within one business day to confirm details.</p>
             <div class="alt-contact">
               <a class="btn btn-ghost btn-sm" href="mailto:hello@opulentfurniture.co.zw">Email us instead</a>
-              <a class="btn btn-ghost btn-sm" href="https://wa.me/263771234567" target="_blank" rel="noopener">WhatsApp us instead</a>
+              <a class="btn btn-ghost btn-sm" href="https://wa.me/263777865776" target="_blank" rel="noopener">WhatsApp us instead</a>
             </div>
           </div>
         </div>
@@ -1052,7 +1052,7 @@ function shareProductToWhatsApp(message, imageDataUri, fileNameBase, fallbackHre
 
 function productCardHTML(p){
   return '' +
-    '<article class="product-card" data-cat="'+p.category+'">' +
+    '<article class="product-card" data-cat="'+p.category+'" data-id="'+p.id+'">' +
       '<div class="product-stage"><img class="media-frame" alt="'+p.fullName+'" loading="lazy"'+(productImage(p,900)?' src="'+productImage(p,900)+'"':'')+'></div>' +
       '<h4>'+p.name+'</h4>' +
       '<span class="cat-label">'+CATEGORY_LABELS[p.category]+'</span>' +
@@ -1308,6 +1308,16 @@ function router(){
 }
 
 window.addEventListener('hashchange', router);
+
+/* Tapping anywhere on a product card opens that product's page — except taps on
+   the card's own links (the arrow/mail mini-links), which keep their own targets. */
+document.addEventListener('click', function(e){
+  var card = e.target.closest('.product-card');
+  if(!card) return;
+  if(e.target.closest('a')) return;
+  var id = card.dataset.id;
+  if(id) location.hash = '#/product?id=' + id;
+});
 document.addEventListener('DOMContentLoaded', async function(){
   if(typeof window.loadSiteContent === 'function'){
     await window.loadSiteContent(); // pulls published edits (and this browser's drafts) before first paint of dynamic data
